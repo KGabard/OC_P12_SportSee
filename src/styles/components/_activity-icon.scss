@@ -1,0 +1,13 @@
+.activity-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  background-color: $basic-white;
+
+  &__image {
+    width: 32px;
+  }
+}

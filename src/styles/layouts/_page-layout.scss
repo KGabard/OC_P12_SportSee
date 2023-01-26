@@ -1,0 +1,14 @@
+.page-layout {
+  height: 0;
+  width: 100%;
+  flex: 1 1 0px;
+  display: flex;
+
+  & .page-body {
+    width: 100%;
+    margin: 0 $desktop-margin;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
