@@ -1,36 +1,40 @@
-import NutrientCard from '../components/NutrientCard'
+import { useEffect, useState } from 'react'
+import UserCard from '../components/UserCard'
+import { SportSeeApi } from '../scripts/api/SportSeeApi'
+import { UserDataType } from '../scripts/types/Types'
 
-const Home = () => {
+function Home() {
+  const [allUsersData, setAllUsersData] = useState<UserDataType[]>([])
+  const sportSeeApi = new SportSeeApi()
+
+  useEffect(() => {
+    async function getAllUsersData() {
+      const fetchAllUsersData = await sportSeeApi.getAllUsersData()
+      if (fetchAllUsersData && fetchAllUsersData.length > 0)
+        setAllUsersData(fetchAllUsersData)
+    }
+    getAllUsersData()
+    // eslint-disable-next-line
+  }, [])
+
   return (
     <div className="home">
-      <div className="home__header-container">
-        <h1 className="home__header-container__title">
-          Bonjour <em className="highlight">Thomas</em>
-        </h1>
-        <p className="home__header-container__text">
-          Félicitation ! Vous avez explosé vos objectifs hier 👏
-        </p>
+      <h1 className="home__header">
+        Veuillez sélectionner un <em>Utilisateur</em>
+      </h1>
+      <div className="home__users-container">
+        {allUsersData &&
+          allUsersData.map((user) => {
+            return (
+              <UserCard
+                key={user.id}
+                firstName={user.userInfos.firstName}
+                lastName={user.userInfos.lastName}
+                id={user.id}
+              />
+            )
+          })}
       </div>
-      <div className="home__nutrients-list-container">
-        <ul className="home__nutrients-list-container__list">
-          <li className="home__nutrients-list-container__list__item">
-            <NutrientCard nutrient="calories" quantity={1930} />
-          </li>
-          <li className="home__nutrients-list-container__list__item">
-            <NutrientCard nutrient="proteins" quantity={155} />
-          </li>
-          <li className="home__nutrients-list-container__list__item">
-            <NutrientCard nutrient="carbs" quantity={290} />
-          </li>
-          <li className="home__nutrients-list-container__list__item">
-            <NutrientCard nutrient="fats" quantity={50} />
-          </li>
-        </ul>
-      </div>
-      <div className="home__activities-chart-container"></div>
-      <div className="home__durations-chart-container"></div>
-      <div className="home__performance-chart-container"></div>
-      <div className="home__score-chart-container"></div>
     </div>
   )
 }

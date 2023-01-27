@@ -1,17 +1,19 @@
-export type HostDataType = {
-  name: string;
-  picture: string;
+export interface UserInfosType {
+  firstName: string
+  lastName: string
+  age: number
 }
 
-export type HousingDataType = {
-  id: string;
-  title: string;
-  cover: string;
-  pictures: string[];
-  description: string;
-  host: HostDataType;
-  rating: string;
-  location: string;
-  equipments: string[];
-  tags: string[];
+export interface KeyDataType {
+  calorieCount: number
+  proteinCount: number
+  carbohydrateCount: number
+  lipidCount: number
+}
+
+export interface UserDataType {
+  id: number
+  userInfos: UserInfosType
+  todayScore: number
+  keyData: KeyDataType
 }
