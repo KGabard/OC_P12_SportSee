@@ -1,0 +1,70 @@
+.home {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 32px;
+
+  &__header-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    grid-row: 1;
+    grid-column: 1 / -1;
+    padding-bottom: 40px;
+
+    &__title {
+      @include typographies(header);
+      & .highlight {
+        color: $highlight-primary;
+        font-style: normal;
+      }
+    }
+
+    &__text {
+      @include typographies(subtitle);
+    }
+  }
+
+  &__nutrients-list-container {
+    grid-row: 2 / 4;
+    grid-column: 4;
+
+    &__list {
+      height: 100%;
+      gap: 24px;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+
+  &__activities-chart-container {
+    background-color: lightgoldenrodyellow;
+    height: 300px;
+    grid-row: 2;
+    grid-column: 1 / 4;
+  }
+
+  &__durations-chart-container {
+    background-color: lightgreen;
+    height: 300px;
+    grid-row: 3;
+    grid-column: 1;
+  }
+
+  &__performance-chart-container {
+    background-color: palevioletred;
+    height: 300px;
+    grid-row: 3;
+    grid-column: 2;
+  }
+
+  &__score-chart-container {
+    background-color: lightsalmon;
+    height: 300px;
+    grid-row: 3;
+    grid-column: 3;
+  }
+}
