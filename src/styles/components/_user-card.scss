@@ -1,0 +1,32 @@
+.user-card {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  box-shadow: 8px 8px 32px rgba(0,0,0,0.5);
+  text-decoration: none;
+  transform: translateY(0px) scale(1);
+  transition: float 300ms linear;
+  transform-origin: 50% 0%;
+
+  &:hover {
+    animation: pre-float 300ms linear, float 1500ms 300ms infinite linear;
+    // animation: float 1500ms 300ms infinite linear;
+  }
+
+  &__image {
+    width: 256px;
+  }
+
+  &__infos-container {
+    @include typographies(title);
+
+    &__first-name {
+      color: $basic-black;
+    }
+
+    &__last-name {
+      color: $highlight-primary;
+    }
+  }
+}

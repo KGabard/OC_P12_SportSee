@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import UserCard from '../components/UserCard'
 import { SportSeeApi } from '../scripts/api/SportSeeApi'
 import { UserDataType } from '../scripts/types/Types'
+import manIcon from '../assets/icons/man.svg'
+import womaIcon from '../assets/icons/woman.svg'
 
 function Home() {
   const [allUsersData, setAllUsersData] = useState<UserDataType[]>([])
@@ -20,14 +22,27 @@ function Home() {
   return (
     <div className="home">
       <h1 className="home__header">
-        Veuillez sélectionner un <em>Utilisateur</em>
+        Veuillez sélectionner un <em className="highlight">utilisateur</em>
       </h1>
       <div className="home__users-container">
         {allUsersData &&
-          allUsersData.map((user) => {
+          allUsersData.map((user, index) => {
+            let userPicture = ''
+            switch (index) {
+              case 0:
+                userPicture = manIcon
+                break
+              case 1:
+                userPicture = womaIcon
+                break
+
+              default:
+                break
+            }
             return (
               <UserCard
                 key={user.id}
+                picture={userPicture}
                 firstName={user.userInfos.firstName}
                 lastName={user.userInfos.lastName}
                 id={user.id}
