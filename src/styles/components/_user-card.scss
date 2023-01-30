@@ -10,8 +10,7 @@
   transform-origin: 50% 0%;
 
   &:hover {
-    animation: pre-float 300ms linear, float 1500ms 300ms infinite linear;
-    // animation: float 1500ms 300ms infinite linear;
+    animation: pre-float 300ms linear, float 1500ms 300ms infinite ease-out;
   }
 
   &__image {

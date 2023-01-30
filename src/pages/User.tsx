@@ -7,19 +7,53 @@ import { UserDataType } from '../scripts/types/Types'
 const User = () => {
   const { id: currentId } = useParams()
   const [userData, setUserData] = useState<UserDataType>()
+  const [userActivity, setUserActivity] = useState<UserDataType>()
+  const [userAverageSessions, setUserAverageSessions] = useState<UserDataType>()
+  const [userPerformance, setUserPerformance] = useState<UserDataType>()
   const sportSeeApi = new SportSeeApi()
 
   useEffect(() => {
+    if (!currentId || isNaN(parseInt(currentId))) return
+    const numberCurrentId = parseInt(currentId)
+
     async function getUserData() {
-      if (!currentId || isNaN(parseInt(currentId))) return
-      const fetchUserData = await sportSeeApi.getUserData(parseInt(currentId))
+      const fetchUserData = await sportSeeApi.getUserData(numberCurrentId)
       if (fetchUserData) setUserData(fetchUserData)
     }
+
+    async function getUserActivity() {
+      const fetchUserActivity = await sportSeeApi.getUserActivity(
+        numberCurrentId
+      )
+      if (fetchUserActivity) setUserActivity(fetchUserActivity)
+    }
+
+    async function getUserAverageSessions() {
+      const fetchUserAverageSessions = await sportSeeApi.getUserAverageSessions(
+        numberCurrentId
+      )
+      if (fetchUserAverageSessions)
+        setUserAverageSessions(fetchUserAverageSessions)
+    }
+
+    async function getUserPerformance() {
+      const fetchUserPerformance = await sportSeeApi.getUserPerformance(
+        numberCurrentId
+      )
+      if (fetchUserPerformance) setUserPerformance(fetchUserPerformance)
+    }
+
     getUserData()
+    getUserActivity()
+    getUserAverageSessions()
+    getUserPerformance()
     // eslint-disable-next-line
   }, [])
 
   console.log(userData)
+  console.log(userActivity)
+  console.log(userAverageSessions)
+  console.log(userPerformance)
 
   return (
     <>
@@ -37,16 +71,28 @@ const User = () => {
           <div className="user__nutrients-list-container">
             <ul className="user__nutrients-list-container__list">
               <li className="user__nutrients-list-container__list__item">
-                <NutrientCard nutrient="calories" quantity={userData.keyData.calorieCount} />
+                <NutrientCard
+                  nutrient="calories"
+                  quantity={userData.keyData.calorieCount}
+                />
               </li>
               <li className="user__nutrients-list-container__list__item">
-                <NutrientCard nutrient="proteins" quantity={userData.keyData.proteinCount} />
+                <NutrientCard
+                  nutrient="proteins"
+                  quantity={userData.keyData.proteinCount}
+                />
               </li>
               <li className="user__nutrients-list-container__list__item">
-                <NutrientCard nutrient="carbs" quantity={userData.keyData.carbohydrateCount} />
+                <NutrientCard
+                  nutrient="carbs"
+                  quantity={userData.keyData.carbohydrateCount}
+                />
               </li>
               <li className="user__nutrients-list-container__list__item">
-                <NutrientCard nutrient="fats" quantity={userData.keyData.lipidCount} />
+                <NutrientCard
+                  nutrient="fats"
+                  quantity={userData.keyData.lipidCount}
+                />
               </li>
             </ul>
           </div>

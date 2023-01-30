@@ -1,0 +1,13 @@
+{
+  "data": {
+    "id": 12,
+    "userInfos": { "firstName": "Melvin", "lastName": "Cobb", "age": 31 },
+    "todayScore": 0.12,
+    "keyData": {
+      "calorieCount": 2100,
+      "proteinCount": 130,
+      "carbohydrateCount": 210,
+      "lipidCount": 80
+    }
+  }
+}
