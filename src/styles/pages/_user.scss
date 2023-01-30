@@ -40,30 +40,29 @@
     }
   }
 
-  &__activities-chart-container {
+  &__activity-chart-container {
     background-color: lightgoldenrodyellow;
-    height: 300px;
+    height: 320px;
     grid-row: 2;
     grid-column: 1 / 4;
   }
 
-  &__durations-chart-container {
-    background-color: lightgreen;
-    height: 300px;
+  &__average-sessions-chart-container {
+    height: 264px;
     grid-row: 3;
     grid-column: 1;
   }
 
   &__performance-chart-container {
     background-color: palevioletred;
-    height: 300px;
+    height: 264px;
     grid-row: 3;
     grid-column: 2;
   }
 
   &__score-chart-container {
     background-color: lightsalmon;
-    height: 300px;
+    height: 264px;
     grid-row: 3;
     grid-column: 3;
   }

@@ -1,0 +1,29 @@
+.average-sessions-chart {
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  &__title {
+    @include typographies(chart-title);
+    color: rgba($basic-white, 0.7);
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    max-width: calc(100% - 64px);
+    z-index: 40;
+  }
+
+  &__chart {
+    background-color: $highlight-primary;
+  }
+
+  &__tooltip {
+    background-color: $basic-white;
+    padding: 8px;
+    @include typographies(body-small);
+    border-radius: 2px;
+    border: none;
+  }
+}

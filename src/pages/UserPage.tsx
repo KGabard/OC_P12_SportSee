@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import AverageSessionsChart from '../components/AverageSessionsChart'
 import NutrientCard from '../components/NutrientCard'
 import { SportSeeApi } from '../scripts/api/SportSeeApi'
-import { UserDataType } from '../scripts/types/Types'
+import { AverageSessions } from '../scripts/models/AverageSessions'
+import { User } from '../scripts/models/User'
+import { ActivityType, PerformanceType } from '../scripts/types/Types'
 
-const User = () => {
+const UserPage = () => {
   const { id: currentId } = useParams()
-  const [userData, setUserData] = useState<UserDataType>()
-  const [userActivity, setUserActivity] = useState<UserDataType>()
-  const [userAverageSessions, setUserAverageSessions] = useState<UserDataType>()
-  const [userPerformance, setUserPerformance] = useState<UserDataType>()
+  const [userData, setUserData] = useState<User>()
+  const [userActivity, setUserActivity] = useState<ActivityType>()
+  const [userAverageSessions, setUserAverageSessions] =
+    useState<AverageSessions>()
+  const [userPerformance, setUserPerformance] = useState<PerformanceType>()
   const sportSeeApi = new SportSeeApi()
 
   useEffect(() => {
@@ -18,7 +22,7 @@ const User = () => {
 
     async function getUserData() {
       const fetchUserData = await sportSeeApi.getUserData(numberCurrentId)
-      if (fetchUserData) setUserData(fetchUserData)
+      if (fetchUserData) setUserData(new User(fetchUserData))
     }
 
     async function getUserActivity() {
@@ -33,7 +37,7 @@ const User = () => {
         numberCurrentId
       )
       if (fetchUserAverageSessions)
-        setUserAverageSessions(fetchUserAverageSessions)
+        setUserAverageSessions(new AverageSessions(fetchUserAverageSessions))
     }
 
     async function getUserPerformance() {
@@ -61,8 +65,7 @@ const User = () => {
         <div className="user">
           <div className="user__header-container">
             <h1 className="user__header-container__title">
-              Bonjour{' '}
-              <em className="highlight">{userData.userInfos.firstName}</em>
+              Bonjour <em className="highlight">{userData.firstName}</em>
             </h1>
             <p className="user__header-container__text">
               Félicitation ! Vous avez explosé vos objectifs hier 👏
@@ -73,31 +76,29 @@ const User = () => {
               <li className="user__nutrients-list-container__list__item">
                 <NutrientCard
                   nutrient="calories"
-                  quantity={userData.keyData.calorieCount}
+                  quantity={userData.calorieCount}
                 />
               </li>
               <li className="user__nutrients-list-container__list__item">
                 <NutrientCard
                   nutrient="proteins"
-                  quantity={userData.keyData.proteinCount}
+                  quantity={userData.proteinCount}
                 />
               </li>
               <li className="user__nutrients-list-container__list__item">
-                <NutrientCard
-                  nutrient="carbs"
-                  quantity={userData.keyData.carbohydrateCount}
-                />
+                <NutrientCard nutrient="carbs" quantity={userData.carbsCount} />
               </li>
               <li className="user__nutrients-list-container__list__item">
-                <NutrientCard
-                  nutrient="fats"
-                  quantity={userData.keyData.lipidCount}
-                />
+                <NutrientCard nutrient="fats" quantity={userData.lipidCount} />
               </li>
             </ul>
           </div>
-          <div className="user__activities-chart-container"></div>
-          <div className="user__durations-chart-container"></div>
+          <div className="user__activity-chart-container"></div>
+          <div className="user__average-sessions-chart-container">
+            {userAverageSessions && (
+              <AverageSessionsChart sessions={userAverageSessions.sessions} />
+            )}
+          </div>
           <div className="user__performance-chart-container"></div>
           <div className="user__score-chart-container"></div>
         </div>
@@ -106,4 +107,4 @@ const User = () => {
   )
 }
 
-export default User
+export default UserPage

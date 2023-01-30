@@ -1,19 +1,24 @@
 import { useEffect, useState } from 'react'
 import UserCard from '../components/UserCard'
 import { SportSeeApi } from '../scripts/api/SportSeeApi'
-import { UserDataType } from '../scripts/types/Types'
 import manIcon from '../assets/icons/man.svg'
 import womaIcon from '../assets/icons/woman.svg'
+import { User } from '../scripts/models/User'
 
 function Home() {
-  const [allUsersData, setAllUsersData] = useState<UserDataType[]>([])
+  const [allUsersData, setAllUsersData] = useState<User[]>([])
   const sportSeeApi = new SportSeeApi()
 
   useEffect(() => {
     async function getAllUsersData() {
       const fetchAllUsersData = await sportSeeApi.getAllUsersData()
-      if (fetchAllUsersData && fetchAllUsersData.length > 0)
-        setAllUsersData(fetchAllUsersData)
+      if (fetchAllUsersData && fetchAllUsersData.length > 0) {
+        const usersArray: User[] = []
+        fetchAllUsersData.forEach((fetchUser) => {
+          usersArray.push(new User(fetchUser))
+        })
+        setAllUsersData(usersArray)
+      }
     }
     getAllUsersData()
     // eslint-disable-next-line
@@ -43,8 +48,8 @@ function Home() {
               <UserCard
                 key={user.id}
                 picture={userPicture}
-                firstName={user.userInfos.firstName}
-                lastName={user.userInfos.lastName}
+                firstName={user.firstName}
+                lastName={user.lastName}
                 id={user.id}
               />
             )

@@ -1,4 +1,4 @@
-import { UserDataType } from '../types/Types'
+import { ActivityType, AverageSessionsType, PerformanceType, UserDataType } from '../types/Types'
 
 async function fetchFrom(url: string) {
   console.log(process.env.NODE_ENV)
@@ -47,19 +47,19 @@ export class SportSeeApi {
     return fetchFrom(userDataUrl)
   }
 
-  async getUserActivity(id: number): Promise<UserDataType | undefined> {
+  async getUserActivity(id: number): Promise<ActivityType | undefined> {
     const userActivityUrl =
       this._url + id.toString() + '/activity' + this._sufix
     return fetchFrom(userActivityUrl)
   }
 
-  async getUserAverageSessions(id: number): Promise<UserDataType | undefined> {
+  async getUserAverageSessions(id: number): Promise<AverageSessionsType | undefined> {
     const userAverageSessionsUrl =
       this._url + id.toString() + '/average-sessions' + this._sufix
     return fetchFrom(userAverageSessionsUrl)
   }
 
-  async getUserPerformance(id: number): Promise<UserDataType | undefined> {
+  async getUserPerformance(id: number): Promise<PerformanceType | undefined> {
     const userPerformanceUrl =
       this._url + id.toString() + '/performance' + this._sufix
     return fetchFrom(userPerformanceUrl)
