@@ -1,0 +1,29 @@
+.activity-chart {
+  border-radius: 8px;
+  overflow: hidden;
+  width: inherit;
+  height: inherit;
+  position: relative;
+
+  &__title {
+    @include typographies(chart-title);
+    color: $basic-black;
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    max-width: calc(100% - 48px);
+    z-index: 10;
+  }
+
+  &__chart {
+    background-color: $neutral-primary;
+  }
+
+  &__tooltip {
+    background-color: $basic-white;
+    padding: 8px;
+    @include typographies(body-small);
+    border-radius: 2px;
+    border: none;
+  }
+}

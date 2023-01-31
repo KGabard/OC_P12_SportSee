@@ -20,7 +20,7 @@ export class Activity {
     return this._activity.userId
   }
 
-  get activities() {
+  get sessions() {
     return convertDays(this._activity.sessions)
   }
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import ActivityChart from '../components/ActivityChart'
 import AverageSessionsChart from '../components/AverageSessionsChart'
 import NutrientCard from '../components/NutrientCard'
 import PerformanceChart from '../components/PerformanceChart'
@@ -59,7 +60,7 @@ const UserPage = () => {
   }, [])
 
   // console.log(userData)
-  console.log(userActivity?.activities)
+  // console.log(userActivity?.sessions)
   // console.log(userAverageSessions)
   // console.log(userPerformance?.performances)
 
@@ -97,7 +98,9 @@ const UserPage = () => {
               </li>
             </ul>
           </div>
-          <div className="user-page__activity-chart-container"></div>
+          <div className="user-page__activity-chart-container">
+            {userActivity && <ActivityChart sessions={userActivity.sessions} />}
+          </div>
           <div className="user-page__average-sessions-chart-container">
             {userAverageSessions && (
               <AverageSessionsChart sessions={userAverageSessions.sessions} />
