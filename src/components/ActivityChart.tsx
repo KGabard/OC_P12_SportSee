@@ -10,7 +10,8 @@ import {
 } from 'recharts'
 import { NameType } from 'recharts/types/component/DefaultTooltipContent'
 import { SessionActivityType } from '../scripts/types/Types'
-import { convertDuration } from '../scripts/utils/Utils'
+
+const caloriesCoef = 0.2
 
 const CustomTooltip = ({ active, payload }: TooltipProps<number, NameType>) => {
   if (!active || !payload) {
@@ -20,13 +21,24 @@ const CustomTooltip = ({ active, payload }: TooltipProps<number, NameType>) => {
   return (
     <div className="activity-chart__tooltip">
       <p className="activity-chart__tooltip__label">
-        {payload[0].value !== undefined && payload[0].value}
+        {payload[0].value !== undefined && payload[0].value}kg
       </p>
       <p className="activity-chart__tooltip__label">
-        {payload[1].value !== undefined && payload[1].value}
+        {payload[1].value !== undefined &&
+          Math.round(payload[1].value / caloriesCoef)}
+        kCal
       </p>
     </div>
   )
+}
+
+const applyCoefToCalories = (
+  sessions: SessionActivityType[],
+  coef: number
+): SessionActivityType[] => {
+  return sessions.map((session) => {
+    return { ...session, calories: session.calories * coef }
+  })
 }
 
 type Props = {
@@ -34,15 +46,21 @@ type Props = {
 }
 
 const ActivityChart = ({ sessions }: Props) => {
+  const sessionsWithCoef = applyCoefToCalories(sessions, caloriesCoef)
+
   return (
     <div className="activity-chart">
       <h2 className="activity-chart__title">Activité quotidienne</h2>
+      <div className="activity-chart__legend">
+        <p className="activity-chart__legend__kilogram">Poids (kg)</p>
+        <p className="activity-chart__legend__calories">
+          Calories brûlées (kCal)
+        </p>
+      </div>
       <ResponsiveContainer>
         <BarChart
-        className='activity-chart__chart'
-          width={730}
-          height={250}
-          data={sessions}
+          className="activity-chart__chart"
+          data={sessionsWithCoef}
           margin={{
             top: 96,
             right: 16,
@@ -79,7 +97,11 @@ const ActivityChart = ({ sessions }: Props) => {
               fontSize: '12px',
             }}
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip
+            offset={32}
+            content={<CustomTooltip />}
+            cursor={{opacity: '0.3'}}
+          />
           <Bar
             dataKey="kilogram"
             fill="#000"

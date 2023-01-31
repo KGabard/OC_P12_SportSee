@@ -34,7 +34,7 @@ const AverageSessionsChart = ({ sessions }: Props) => {
       <h2 className="average-sessions-chart__title">
         Durée moyenne des sessions
       </h2>
-      <ResponsiveContainer >
+      <ResponsiveContainer>
         <LineChart
           className="average-sessions-chart__chart"
           data={sessions}
@@ -58,13 +58,7 @@ const AverageSessionsChart = ({ sessions }: Props) => {
             axisLine={false}
             tickLine={false}
           />
-          <Tooltip
-            content={<CustomTooltip />}
-            // contentStyle={{ backgroundColor: '#8884d8', color: '#fff' }}
-            // itemStyle={{ color: '#fff' }}
-            // labelStyle={{ backgroundColor: '#8884d8', color: '#fff' }}
-            // cursor={false}
-          />
+          <Tooltip content={<CustomTooltip />} />
           <Line
             type="monotone"
             dataKey="sessionLength"
