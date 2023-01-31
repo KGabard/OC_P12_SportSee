@@ -24,7 +24,7 @@ export class User {
   }
 
   get todayScore() {
-    return this._userData.todayScore
+    return this._userData.todayScore * 100
   }
 
   get calorieCount() {

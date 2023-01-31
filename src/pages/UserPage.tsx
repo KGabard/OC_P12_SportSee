@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import AverageSessionsChart from '../components/AverageSessionsChart'
 import NutrientCard from '../components/NutrientCard'
+import ScoreChart from '../components/ScoreChart'
 import { SportSeeApi } from '../scripts/api/SportSeeApi'
 import { AverageSessions } from '../scripts/models/AverageSessions'
 import { User } from '../scripts/models/User'
@@ -55,52 +56,54 @@ const UserPage = () => {
   }, [])
 
   console.log(userData)
-  console.log(userActivity)
-  console.log(userAverageSessions)
-  console.log(userPerformance)
+  // console.log(userActivity)
+  // console.log(userAverageSessions)
+  // console.log(userPerformance)
 
   return (
     <>
       {userData && (
-        <div className="user">
-          <div className="user__header-container">
-            <h1 className="user__header-container__title">
+        <div className="user-page">
+          <div className="user-page__header-container">
+            <h1 className="user-page__header-container__title">
               Bonjour <em className="highlight">{userData.firstName}</em>
             </h1>
-            <p className="user__header-container__text">
+            <p className="user-page__header-container__text">
               Félicitation ! Vous avez explosé vos objectifs hier 👏
             </p>
           </div>
-          <div className="user__nutrients-list-container">
-            <ul className="user__nutrients-list-container__list">
-              <li className="user__nutrients-list-container__list__item">
+          <div className="user-page__nutrients-list-container">
+            <ul className="user-page__nutrients-list-container__list">
+              <li className="user-page__nutrients-list-container__list__item">
                 <NutrientCard
                   nutrient="calories"
                   quantity={userData.calorieCount}
                 />
               </li>
-              <li className="user__nutrients-list-container__list__item">
+              <li className="user-page__nutrients-list-container__list__item">
                 <NutrientCard
                   nutrient="proteins"
                   quantity={userData.proteinCount}
                 />
               </li>
-              <li className="user__nutrients-list-container__list__item">
+              <li className="user-page__nutrients-list-container__list__item">
                 <NutrientCard nutrient="carbs" quantity={userData.carbsCount} />
               </li>
-              <li className="user__nutrients-list-container__list__item">
+              <li className="user-page__nutrients-list-container__list__item">
                 <NutrientCard nutrient="fats" quantity={userData.lipidCount} />
               </li>
             </ul>
           </div>
-          <div className="user__activity-chart-container"></div>
-          <div className="user__average-sessions-chart-container">
+          <div className="user-page__activity-chart-container"></div>
+          <div className="user-page__average-sessions-chart-container">
             {userAverageSessions && (
               <AverageSessionsChart sessions={userAverageSessions.sessions} />
             )}
           </div>
-          <div className="user__performance-chart-container"></div>
-          <div className="user__score-chart-container"></div>
+          <div className="user-page__performance-chart-container"></div>
+          <div className="user-page__score-chart-container">
+            {userData && <ScoreChart score={userData.todayScore} />}
+          </div>
         </div>
       )}
     </>

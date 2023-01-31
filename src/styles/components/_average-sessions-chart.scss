@@ -11,8 +11,8 @@
     position: absolute;
     top: 24px;
     left: 24px;
-    max-width: calc(100% - 64px);
-    z-index: 40;
+    max-width: calc(100% - 48px);
+    z-index: 10;
   }
 
   &__chart {

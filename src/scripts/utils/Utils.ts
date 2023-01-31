@@ -5,9 +5,6 @@ export function numberToString(number: number): string {
 export function convertDuration(duration: number): string {
   let hours = Math.floor(duration / 60)
   let minutes = duration % 60
-
-  console.log(hours);
-  console.log(minutes);
   
   if (hours > 0) {
     return `${hours} h ${minutes} min`

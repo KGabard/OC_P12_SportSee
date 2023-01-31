@@ -13,3 +13,8 @@ $desktop-margin: 96px;
 $mobile-margin: 16px;
 
 $max-desktop-width: 1440px;
+
+//CSS converted variable usable with javascript :
+:root {
+  --highlight-primary: #{$highlight-primary};
+}

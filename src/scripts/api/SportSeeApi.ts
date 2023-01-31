@@ -1,8 +1,6 @@
 import { ActivityType, AverageSessionsType, PerformanceType, UserDataType } from '../types/Types'
 
 async function fetchFrom(url: string) {
-  console.log(process.env.NODE_ENV)
-
   try {
     const res = await fetch(url, {
       headers: {
