@@ -46,7 +46,6 @@ export interface PerformanceDataType {
 export interface ConvertedPerformanceDataType {
   kind: string
   value: number
-  max: number
 }
 
 export interface PerformanceType {

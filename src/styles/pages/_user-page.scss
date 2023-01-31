@@ -54,7 +54,6 @@
   }
 
   &__performance-chart-container {
-    background-color: palevioletred;
     height: 264px;
     grid-row: 3;
     grid-column: 2;
@@ -64,5 +63,7 @@
     height: 264px;
     grid-row: 3;
     grid-column: 3;
+    background-color: $neutral-primary;
+    border-radius: 8px;
   }
 }

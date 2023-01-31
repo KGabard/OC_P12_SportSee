@@ -34,7 +34,7 @@ const AverageSessionsChart = ({ sessions }: Props) => {
       <h2 className="average-sessions-chart__title">
         Durée moyenne des sessions
       </h2>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer >
         <LineChart
           className="average-sessions-chart__chart"
           data={sessions}

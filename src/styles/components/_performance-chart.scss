@@ -1,0 +1,11 @@
+.performance-chart {
+  border-radius: 8px;
+  overflow: hidden;
+  width: inherit;
+  height: inherit;
+  position: relative;
+
+  &__chart {
+    background-color: $neutral-tertiary;
+  }
+}

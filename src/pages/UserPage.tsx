@@ -2,17 +2,18 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import AverageSessionsChart from '../components/AverageSessionsChart'
 import NutrientCard from '../components/NutrientCard'
+import PerformanceChart from '../components/PerformanceChart'
 import ScoreChart from '../components/ScoreChart'
 import { SportSeeApi } from '../scripts/api/SportSeeApi'
+import { Activity } from '../scripts/models/Activity'
 import { AverageSessions } from '../scripts/models/AverageSessions'
 import { Performance } from '../scripts/models/Performance'
 import { User } from '../scripts/models/User'
-import { ActivityType } from '../scripts/types/Types'
 
 const UserPage = () => {
   const { id: currentId } = useParams()
   const [userData, setUserData] = useState<User>()
-  const [userActivity, setUserActivity] = useState<ActivityType>()
+  const [userActivity, setUserActivity] = useState<Activity>()
   const [userAverageSessions, setUserAverageSessions] =
     useState<AverageSessions>()
   const [userPerformance, setUserPerformance] = useState<Performance>()
@@ -31,7 +32,7 @@ const UserPage = () => {
       const fetchUserActivity = await sportSeeApi.getUserActivity(
         numberCurrentId
       )
-      if (fetchUserActivity) setUserActivity(fetchUserActivity)
+      if (fetchUserActivity) setUserActivity(new Activity(fetchUserActivity))
     }
 
     async function getUserAverageSessions() {
@@ -58,9 +59,9 @@ const UserPage = () => {
   }, [])
 
   // console.log(userData)
-  // console.log(userActivity)
+  console.log(userActivity?.activities)
   // console.log(userAverageSessions)
-  console.log(userPerformance?.performances)
+  // console.log(userPerformance?.performances)
 
   return (
     <>
@@ -102,7 +103,11 @@ const UserPage = () => {
               <AverageSessionsChart sessions={userAverageSessions.sessions} />
             )}
           </div>
-          <div className="user-page__performance-chart-container"></div>
+          <div className="user-page__performance-chart-container">
+            {userPerformance && (
+              <PerformanceChart performances={userPerformance.performances} />
+            )}
+          </div>
           <div className="user-page__score-chart-container">
             {userData && <ScoreChart score={userData.todayScore} />}
           </div>

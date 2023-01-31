@@ -1,16 +1,10 @@
-import {
-  RadialBar,
-  RadialBarChart,
-  ResponsiveContainer,
-} from 'recharts'
+import { RadialBar, RadialBarChart, ResponsiveContainer } from 'recharts'
 
 type Props = {
   score: number
 }
 
 const ScoreChart = ({ score }: Props) => {
-  console.log(score)
-
   const data = [
     {
       name: 'max',
@@ -31,7 +25,10 @@ const ScoreChart = ({ score }: Props) => {
         <p className="score-chart__infos__percentage">{`${score}%`}</p>
         <p className="score-chart__infos__text">{'de votre\nobjectif'}</p>
       </div>
-      <ResponsiveContainer width="100%" height="100%">
+      <div className="score-chart__circle-container">
+        <div className="score-chart__circle"></div>
+      </div>
+      <ResponsiveContainer >
         <RadialBarChart
           className="score-chart__chart"
           innerRadius="55%"
@@ -46,10 +43,7 @@ const ScoreChart = ({ score }: Props) => {
             bottom: 0,
           }}
         >
-          <RadialBar
-            dataKey="value"
-            cornerRadius={100}
-          />
+          <RadialBar className="score-chart__chart__bar" dataKey="value" cornerRadius={100} />
         </RadialBarChart>
       </ResponsiveContainer>
     </div>
