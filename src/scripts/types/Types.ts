@@ -43,6 +43,12 @@ export interface PerformanceDataType {
   kind: number
 }
 
+export interface ConvertedPerformanceDataType {
+  kind: string
+  value: number
+  max: number
+}
+
 export interface PerformanceType {
   userId: number
   kind: KindType

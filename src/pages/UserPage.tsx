@@ -5,8 +5,9 @@ import NutrientCard from '../components/NutrientCard'
 import ScoreChart from '../components/ScoreChart'
 import { SportSeeApi } from '../scripts/api/SportSeeApi'
 import { AverageSessions } from '../scripts/models/AverageSessions'
+import { Performance } from '../scripts/models/Performance'
 import { User } from '../scripts/models/User'
-import { ActivityType, PerformanceType } from '../scripts/types/Types'
+import { ActivityType } from '../scripts/types/Types'
 
 const UserPage = () => {
   const { id: currentId } = useParams()
@@ -14,7 +15,7 @@ const UserPage = () => {
   const [userActivity, setUserActivity] = useState<ActivityType>()
   const [userAverageSessions, setUserAverageSessions] =
     useState<AverageSessions>()
-  const [userPerformance, setUserPerformance] = useState<PerformanceType>()
+  const [userPerformance, setUserPerformance] = useState<Performance>()
   const sportSeeApi = new SportSeeApi()
 
   useEffect(() => {
@@ -45,7 +46,8 @@ const UserPage = () => {
       const fetchUserPerformance = await sportSeeApi.getUserPerformance(
         numberCurrentId
       )
-      if (fetchUserPerformance) setUserPerformance(fetchUserPerformance)
+      if (fetchUserPerformance)
+        setUserPerformance(new Performance(fetchUserPerformance))
     }
 
     getUserData()
@@ -55,10 +57,10 @@ const UserPage = () => {
     // eslint-disable-next-line
   }, [])
 
-  console.log(userData)
+  // console.log(userData)
   // console.log(userActivity)
   // console.log(userAverageSessions)
-  // console.log(userPerformance)
+  console.log(userPerformance?.performances)
 
   return (
     <>
