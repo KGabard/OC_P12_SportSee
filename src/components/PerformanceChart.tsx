@@ -5,8 +5,32 @@ import {
   Radar,
   RadarChart,
   ResponsiveContainer,
+  Tooltip,
+  TooltipProps,
 } from 'recharts'
+import { NameType } from 'recharts/types/component/DefaultTooltipContent'
 import { ConvertedPerformanceDataType } from '../scripts/types/Types'
+
+const CustomTooltip = ({
+  active,
+  payload,
+  label,
+}: TooltipProps<number, NameType>) => {
+  if (!active || !payload) {
+    return null
+  }
+
+  return (
+    <div className="performance-chart__tooltip">
+      <p className="performance-chart__tooltip__label">
+        {label !== undefined && label}
+      </p>
+      <p className="performance-chart__tooltip__label">
+        {payload[0].value !== undefined && payload[0].value}
+      </p>
+    </div>
+  )
+}
 
 type Props = {
   performances: ConvertedPerformanceDataType[]
@@ -15,7 +39,7 @@ type Props = {
 const PerformanceChart = ({ performances }: Props) => {
   return (
     <div className="performance-chart">
-      <ResponsiveContainer >
+      <ResponsiveContainer>
         <RadarChart
           className="performance-chart__chart"
           margin={{
@@ -25,8 +49,8 @@ const PerformanceChart = ({ performances }: Props) => {
             bottom: 16,
           }}
           data={performances}
-          startAngle={-150}
-          endAngle={210}
+          startAngle={30}
+          endAngle={-330}
         >
           <PolarGrid radialLines={false} polarRadius={[10, 25, 50, 70]} />
           <PolarAngleAxis
@@ -47,6 +71,7 @@ const PerformanceChart = ({ performances }: Props) => {
             fill="var(--highlight-primary)"
             fillOpacity={0.6}
           />
+          <Tooltip offset={24} content={<CustomTooltip />} cursor={false} />
         </RadarChart>
       </ResponsiveContainer>
     </div>
