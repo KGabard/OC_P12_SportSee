@@ -46,7 +46,7 @@
   }
 }
 
-@include tablet-and-mobile {
+@include desktop-small {
   .header {
     padding: 12px $mobile-margin 12px 24px;
     position: relative;

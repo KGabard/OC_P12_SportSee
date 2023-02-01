@@ -1,9 +1,9 @@
 .performance-chart {
   border-radius: 8px;
   overflow: hidden;
-  width: inherit;
-  height: inherit;
-  position: relative;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 
   &__chart {
     background-color: $neutral-tertiary;

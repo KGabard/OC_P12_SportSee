@@ -42,28 +42,94 @@
   }
 
   &__activity-chart-container {
+    position: relative;
     height: 320px;
     grid-row: 2;
     grid-column: 1 / 4;
   }
 
   &__average-sessions-chart-container {
+    position: relative;
     height: 264px;
     grid-row: 3;
     grid-column: 1;
   }
 
   &__performance-chart-container {
+    position: relative;
     height: 264px;
     grid-row: 3;
     grid-column: 2;
   }
 
   &__score-chart-container {
+    position: relative;
     height: 264px;
     grid-row: 3;
     grid-column: 3;
     background-color: $neutral-primary;
     border-radius: 8px;
+  }
+}
+
+@include desktop {
+  .user-page {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, auto);
+    gap: 32px;
+
+    &__nutrients-list-container {
+      grid-row: 2;
+      grid-column: 1 / -1;
+
+      &__list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: start;
+      }
+    }
+
+    &__activity-chart-container {
+      grid-row: 3;
+      grid-column: 1 / -1;
+    }
+
+    &__average-sessions-chart-container {
+      grid-row: 4;
+      grid-column: 1;
+    }
+
+    &__performance-chart-container {
+      grid-row: 4;
+      grid-column: 2;
+    }
+
+    &__score-chart-container {
+      grid-row: 4;
+      grid-column: 3;
+    }
+  }
+}
+
+@include desktop-small {
+  .user-page {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, auto);
+    gap: 32px;
+
+    &__average-sessions-chart-container {
+      grid-row: 4;
+      grid-column: 1 / -1;
+    }
+
+    &__performance-chart-container {
+      grid-row: 5;
+      grid-column: 1 / -1;
+    }
+
+    &__score-chart-container {
+      grid-row: 6;
+      grid-column: 1 / -1;
+    }
   }
 }

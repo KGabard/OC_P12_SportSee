@@ -23,3 +23,29 @@
     transform: rotate(-180deg);
   }
 }
+
+@include mobile {
+  .side-bar {
+    width: 100%;
+    padding: 24px $mobile-margin;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+
+    &__activities {
+      margin-bottom: 0px;
+      &__list {
+        flex-direction: row;
+        gap: 16px;
+      }
+    }
+
+    &__copyright {
+      color: $basic-white;
+      @include typographies(body-small);
+      writing-mode: unset;
+      transform: rotate(0deg);
+    }
+  }
+}

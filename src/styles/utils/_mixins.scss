@@ -1,5 +1,23 @@
-@mixin tablet-and-mobile {
-  @media screen and (max-width: 800px) {
+@mixin desktop {
+  @media screen and (max-width: 1400px) {
+    @content;
+  }
+}
+
+@mixin desktop-small {
+  @media screen and (max-width: 1100px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 480px) {
     @content;
   }
 }
@@ -9,7 +27,7 @@
   @each $attribute, $val in $typography {
     #{$attribute}: #{$val};
   }
-  @include tablet-and-mobile {
+  @include tablet {
     $typography: map-get($mobile-typographies, $type);
     @each $attribute, $val in $typography {
       #{$attribute}: #{$val};

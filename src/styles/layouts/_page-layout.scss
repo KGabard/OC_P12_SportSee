@@ -12,3 +12,29 @@
     align-items: center;
   }
 }
+
+@include desktop-small {
+  .page-layout {
+    & .page-body {
+      margin: 56px $tablet-margin 80px;
+    }
+  }
+}
+
+@include tablet {
+  .page-layout {
+    & .page-body {
+      margin: 48px $mobile-margin 72px;
+    }
+  }
+}
+
+@include mobile {
+  .page-layout {
+    flex-direction: column-reverse;
+
+    & .page-body {
+      width: calc(100% - 2 * $mobile-margin);
+    }
+  }
+}
