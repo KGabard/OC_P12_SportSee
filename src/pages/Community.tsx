@@ -1,8 +1,11 @@
 const Community = () => {
   return (
-    <>
-      <h1>Communauté</h1>
-    </>
+    <div className="community">
+      <h1 className="community__title">Communauté</h1>
+      <p className="community__work-in-progress">
+        WIP <span className="community__work-in-progress__hammer">🔨</span>
+      </p>
+    </div>
   )
 }
 

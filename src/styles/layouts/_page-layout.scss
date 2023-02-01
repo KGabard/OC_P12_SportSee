@@ -32,6 +32,7 @@
 @include mobile {
   .page-layout {
     flex-direction: column-reverse;
+    justify-content: space-between;
 
     & .page-body {
       width: calc(100% - 2 * $mobile-margin);

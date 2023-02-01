@@ -42,3 +42,39 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@mixin work-in-progress-style {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+
+  &__title {
+    @include typographies(header);
+    text-align: center;
+    color: $highlight-primary;
+  }
+
+  &__work-in-progress {
+    @include typographies(title);
+    display: flex;
+    position: relative;
+    left: 24px;
+
+    &__hammer {
+      display: block;
+      translate: -10px -35px;
+      aspect-ratio: 1/1;
+      height: 48px;
+      line-height: 48px;
+      transform-origin: center 60%;
+      animation-name: hammering;
+      animation-timing-function: ease-in;
+      animation-duration: 500ms;
+      animation-direction: alternate;
+      animation-fill-mode: both;
+      animation-iteration-count: infinite;
+    }
+  }
+}
