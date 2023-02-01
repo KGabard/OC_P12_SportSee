@@ -1,0 +1,15 @@
+{
+  "short_name": "SportSee App",
+  "name": "SportSee App",
+  "icons": [
+    {
+      "src": "sport-see-logo-small.png",
+      "type": "image/png",
+      "sizes": "58x58"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
