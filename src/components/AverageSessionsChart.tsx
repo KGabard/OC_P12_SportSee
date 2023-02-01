@@ -51,7 +51,7 @@ const AverageSessionsChart = ({ sessions }: Props) => {
             tick={{
               fill: '#fff',
               opacity: 0.7,
-              fontFamily: 'Roboto',
+              fontFamily: 'Roboto, sans-serif',
               fontWeight: '500',
               fontSize: '12px',
             }}

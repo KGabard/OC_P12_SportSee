@@ -35,7 +35,7 @@ const PerformanceChart = ({ performances }: Props) => {
             tickLine={false}
             tick={{
               fill: '#fff',
-              fontFamily: 'Roboto',
+              fontFamily: 'Roboto, sans-serif',
               fontWeight: '500',
               fontSize: '12px',
             }}

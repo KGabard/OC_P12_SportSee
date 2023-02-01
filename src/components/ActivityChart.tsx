@@ -80,7 +80,7 @@ const ActivityChart = ({ sessions }: Props) => {
             tick={{
               fill: '#000',
               opacity: 0.7,
-              fontFamily: 'Roboto',
+              fontFamily: 'Roboto, sans-serif',
               fontWeight: '500',
               fontSize: '12px',
             }}
@@ -92,7 +92,7 @@ const ActivityChart = ({ sessions }: Props) => {
             tick={{
               fill: '#000',
               opacity: 0.7,
-              fontFamily: 'Roboto',
+              fontFamily: 'Roboto, sans-serif',
               fontWeight: '500',
               fontSize: '12px',
             }}
