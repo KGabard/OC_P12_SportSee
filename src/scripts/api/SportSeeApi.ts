@@ -30,7 +30,7 @@ export class SportSeeApi {
       this._url = 'mockData/user/'
       this._sufix = '.json'
     } else {
-      this._url = 'http://localhost:5000/user/'
+      this._url = 'https://oc-p12-sportsee-backend.onrender.com/user/'
       this._sufix = ''
     }
   }
