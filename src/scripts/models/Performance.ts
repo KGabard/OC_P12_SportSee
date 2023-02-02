@@ -4,8 +4,16 @@ import {
   PerformanceDataType,
   PerformanceType,
 } from '../types/Types'
-import { capitalizeFirstLetter, translateKinds } from '../utils/Utils'
+import { translateKinds } from '../utils/Utils'
 
+/**
+ * Converts a performance kind id to its string representation.
+ *
+ * @param {string} kindId The id of the performance kind.
+ * @param {KindType} kind The kind data.
+ *
+ * @returns {string} The string representation of the performance kind.
+ */
 const convertKind = (kindId: string, kind: KindType): string => {
   switch (kindId) {
     case '1':
@@ -26,6 +34,14 @@ const convertKind = (kindId: string, kind: KindType): string => {
   }
 }
 
+/**
+ * Converts the performance data with its kind from number to string representation.
+ *
+ * @param {KindType} kind The kind of performance data.
+ * @param {PerformanceDataType[]} perfomanceData The performance data of the user.
+ *
+ * @returns {ConvertedPerformanceDataType[]} The converted performance data.
+ */
 const convertPerformances = (
   kind: KindType,
   perfomanceData: PerformanceDataType[]
@@ -42,6 +58,16 @@ const convertPerformances = (
   return performanceDataArray
 }
 
+/**
+ * Class Performance represents a performance data with its own userId and converted performance data.
+ *
+ * @class Performance
+ *
+ * @param {PerformanceType} _performance The original performance data.
+ *
+ * @property {string} userId The id of the user.
+ * @property {ConvertedPerformanceDataType[]} performances The performance data of the user converted with its kind.
+ */
 export class Performance {
   _performance: PerformanceType
 

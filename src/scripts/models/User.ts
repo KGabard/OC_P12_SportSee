@@ -1,5 +1,22 @@
 import { UserDataType } from '../types/Types'
 
+/**
+ * Class User represents a user with its own id, first name, last name, age, and various sport-related data.
+ *
+ * @class User
+ *
+ * @param {UserDataType} _userData The original user data.
+ *
+ * @property {string} id The id of the user.
+ * @property {string} firstName The first name of the user.
+ * @property {string} lastName The last name of the user.
+ * @property {number} age The age of the user.
+ * @property {number} todayScore The score of the user in percent.
+ * @property {number} calorieCount The calorie count of the user.
+ * @property {number} proteinCount The protein count of the user.
+ * @property {number} carbsCount The carbohydrate count of the user.
+ * @property {number} lipidCount The lipid count of the user.
+ */
 export class User {
   _userData: UserDataType
 

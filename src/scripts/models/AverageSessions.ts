@@ -4,6 +4,11 @@ import {
   SessionLengthType,
 } from '../types/Types'
 
+/**
+ * Converts the number representation of the day of the week to its string representation.
+ * @param {SessionLengthType[]} sessions An array of objects representing the session length data.
+ * @returns {ConvertedSessionLengthType[]} An array of objects with the `day` property converted to its string representation.
+ */
 const convertDays = (
   sessions: SessionLengthType[]
 ): ConvertedSessionLengthType[] => {
@@ -40,6 +45,16 @@ const convertDays = (
   })
 }
 
+/**
+ * Class representing the average sessions data.
+ *
+ * @class AverageSessions
+ *
+ * @param {AverageSessionsType} _averageSession The original average session data.
+ *
+ * @property {string} userId The id of the user.
+ * @property {ConvertedSessionLengthType[]} sessions An array of average session data with the `day` property converted to its string representation.
+ */
 export class AverageSessions {
   _averageSession: AverageSessionsType
 

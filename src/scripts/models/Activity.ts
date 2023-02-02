@@ -1,6 +1,11 @@
 import { ActivityType, SessionActivityType } from '../types/Types'
 import { convertDate } from '../utils/Utils'
 
+/**
+ * Convert the session's date to a string format
+ * @param sessions Array of session activities
+ * @returns Array of session activities with converted date format
+ */
 const convertDays = (
   sessions: SessionActivityType[]
 ): SessionActivityType[] => {
@@ -9,6 +14,16 @@ const convertDays = (
   })
 }
 
+/**
+ * Class representing the activity data.
+ *
+ * @class Activity
+ *
+ * @param {ActivityType} _activity The original activity data.
+ * 
+ * @property {string} userId The id of the user.
+ * @property {SessionActivityType[]} sessions An array of session activities with converted date format.
+ */
 export class Activity {
   _activity: ActivityType
 
