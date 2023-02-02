@@ -10,6 +10,12 @@ type Props = {
   quantity: number
 }
 
+/**
+ * NutrientCard is a component that displays a card based on the type of nutrient.
+ * @param {'calories' | 'proteins' | 'carbs' | 'fats'} props.nutrient The type of nutrient.
+ * @param {number} props.quantity The quantity of nutrient.
+ * @returns {JSX.Element} A React component.
+ */
 const NutrientCard = ({ nutrient, quantity }: Props) => {
   let currentIcon = ''
   let label = ''

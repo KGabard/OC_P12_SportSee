@@ -1,3 +1,7 @@
+/**
+ * Community page.
+ * @returns {JSX.Element} A React component.
+ */
 const Community = () => {
   return (
     <div className="community">

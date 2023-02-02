@@ -5,6 +5,11 @@ type Props = {
   score: number
 }
 
+/**
+ * ScoreChart renders a radial bar chart that displays the today score.
+ * @param {number} props.score Score to display.
+ * @returns {JSX.Element} A React component.
+ */
 const ScoreChart = ({ score }: Props) => {
   const data = [
     {

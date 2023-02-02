@@ -1,5 +1,9 @@
 import ActivityIcon from '../components/ActivityIcon'
 
+/**
+ * Sidebar of the site. Contains icons and a copyright.
+ * @returns {JSX.Element} A React component.
+ */
 const SideBar = () => {
   return (
     <>

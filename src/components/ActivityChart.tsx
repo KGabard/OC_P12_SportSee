@@ -14,6 +14,11 @@ import PropTypes from 'prop-types'
 
 const caloriesCoef = 0.2
 
+/**
+ * CustomTooltip renders a custom tooltip for the activity chart.
+ * @param {boolean} props.active Specifies if the tooltip is active or not.
+ * @param {NameType} props.payload Data to be displayed in the tooltip.
+ */
 const CustomTooltip = ({ active, payload }: TooltipProps<number, NameType>) => {
   if (!active || !payload) {
     return null
@@ -33,6 +38,12 @@ const CustomTooltip = ({ active, payload }: TooltipProps<number, NameType>) => {
   )
 }
 
+/**
+ * Applies a coefficient to the calories value in each session activity data.
+ * @param {SessionActivityType[]} sessions Array of session activity data.
+ * @param {number} coef The coefficient to apply to the calories value.
+ * @returns {SessionActivityType[]} Array of session activity data with the applied coefficient.
+ */
 const applyCoefToCalories = (
   sessions: SessionActivityType[],
   coef: number
@@ -46,6 +57,11 @@ type Props = {
   sessions: SessionActivityType[]
 }
 
+/**
+ * ActivityChart renders a bar chart that displays activity data
+ * @param {SessionActivityType[]} props.sessions Array of session activity data
+ * @returns {JSX.Element} A React component
+ */
 const ActivityChart = ({ sessions }: Props) => {
   const sessionsWithCoef = applyCoefToCalories(sessions, caloriesCoef)
 

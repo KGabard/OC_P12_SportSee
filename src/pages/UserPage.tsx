@@ -11,6 +11,10 @@ import { AverageSessions } from '../scripts/models/AverageSessions'
 import { Performance } from '../scripts/models/Performance'
 import { User } from '../scripts/models/User'
 
+/**
+ * User page. Presents data of the user with charts.
+ * @returns {JSX.Element} A React component.
+ */
 const UserPage = () => {
   const { id: currentId } = useParams()
   const [userData, setUserData] = useState<User>()
@@ -20,6 +24,9 @@ const UserPage = () => {
   const [userPerformance, setUserPerformance] = useState<Performance>()
   const sportSeeApi = new SportSeeApi()
 
+  /**
+   * useEffect hook for retrieving user data (global, activity, average session and performance) from the sportSeeApi and store them in the state.
+   */
   useEffect(() => {
     if (!currentId || isNaN(parseInt(currentId))) return
     const numberCurrentId = parseInt(currentId)

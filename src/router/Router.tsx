@@ -5,6 +5,10 @@ import Profile from '../pages/Profile'
 import Settings from '../pages/Settings'
 import Home from '../pages/Home'
 
+/**
+ * Router component for handling routing in the application.
+ * @returns {JSX.Element} Routed components based on the path.
+ */
 const Router = () => {
   return (
     <Routes>

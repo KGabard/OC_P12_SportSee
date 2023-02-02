@@ -3,6 +3,10 @@ import sportSeeLogo from '../assets/logos/sport-see-logo-big.png'
 import burgerIcon from '../assets/icons/burger.svg'
 import { useState } from 'react'
 
+/**
+ * Header of the site. Contains the logo and a navbar.
+ * @returns {JSX.Element} A React component.
+ */
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpening, setIsOpening] = useState(false)

@@ -12,6 +12,11 @@ import { NameType } from 'recharts/types/component/DefaultTooltipContent'
 import { ConvertedPerformanceDataType } from '../scripts/types/Types'
 import PropTypes from 'prop-types'
 
+/**
+ * CustomTooltip renders a custom tooltip for the performance chart.
+ * @param {boolean} props.active Specifies if the tooltip is active or not.
+ * @param {NameType} props.payload Data to be displayed in the tooltip.
+ */
 const CustomTooltip = ({
   active,
   payload,
@@ -37,6 +42,11 @@ type Props = {
   performances: ConvertedPerformanceDataType[]
 }
 
+/**
+ * PerformanceChart renders a radar chart that displays performance data.
+ * @param {ConvertedPerformanceDataType[]} props.performances Array of performance data.
+ * @returns {JSX.Element} A React component.
+ */
 const PerformanceChart = ({ performances }: Props) => {
   return (
     <div className="performance-chart">

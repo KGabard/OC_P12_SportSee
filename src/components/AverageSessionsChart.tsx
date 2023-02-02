@@ -11,6 +11,11 @@ import { ConvertedSessionLengthType } from '../scripts/types/Types'
 import { convertDuration } from '../scripts/utils/Utils'
 import PropTypes from 'prop-types'
 
+/**
+ * CustomTooltip renders a custom tooltip for the average session chart.
+ * @param {boolean} props.active Specifies if the tooltip is active or not.
+ * @param {NameType} props.payload Data to be displayed in the tooltip.
+ */
 const CustomTooltip = ({ active, payload }: TooltipProps<number, NameType>) => {
   if (!active || !payload) {
     return null
@@ -29,6 +34,11 @@ type Props = {
   sessions: ConvertedSessionLengthType[]
 }
 
+/**
+ * AverageSessionsChart renders a linear chart that displays sessions lenght data.
+ * @param {ConvertedSessionLengthType[]} props.sessions Array of session lenght data.
+ * @returns {JSX.Element} A React component.
+ */
 const AverageSessionsChart = ({ sessions }: Props) => {
   return (
     <div className="average-sessions-chart">

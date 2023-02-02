@@ -1,3 +1,7 @@
+/**
+ * Settings page.
+ * @returns {JSX.Element} A React component.
+ */
 const Settings = () => {
   return (
     <div className="settings">

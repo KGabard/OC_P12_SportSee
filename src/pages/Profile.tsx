@@ -1,3 +1,7 @@
+/**
+ * Profile page.
+ * @returns {JSX.Element} A React component.
+ */
 const Profile = () => {
   return (
     <div className="profile">

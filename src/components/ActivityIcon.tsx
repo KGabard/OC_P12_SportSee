@@ -8,6 +8,11 @@ type Props = {
   activity: 'yoga' | 'swimming' | 'cycling' | 'weight'
 }
 
+/**
+ * ActivityIcon is a component that displays an icon based on the type of activity.
+ * @param {'yoga' | 'swimming' | 'cycling' | 'weight'} props.activity The type of activity.
+ * @returns {JSX.Element} A React component.
+ */
 const ActivityIcon = ({ activity }: Props) => {
   let currentIcon = ''
 

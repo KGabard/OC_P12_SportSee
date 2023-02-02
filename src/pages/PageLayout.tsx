@@ -3,6 +3,10 @@ import Header from '../layouts/Header'
 import SideBar from '../layouts/SideBar'
 import PropTypes from 'prop-types'
 
+/**
+ * General page layout. Arrange the header, the sidebar and the page body.
+ * @returns {JSX.Element} A React component.
+ */
 const PageLayout = ({ children }: PropsWithChildren) => {
   return (
     <>

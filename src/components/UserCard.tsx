@@ -8,6 +8,14 @@ type Props = {
   id: number
 }
 
+/**
+ * UserCard is a component that displays a card of the user with his picture, first name, last name and a link to the user page.
+ * @param {string} props.picture Picture of the user.
+ * @param {string} props.firstName First name of the user.
+ * @param {string} props.lastName Last name of the user.
+ * @param {number} props.id id of the user. Passed through the url.
+ * @returns {JSX.Element} A React component.
+ */
 const UserCard = ({ picture, firstName, lastName, id }: Props) => {
   return (
     <Link to={`/user/${id}`} className="user-card">

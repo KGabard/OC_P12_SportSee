@@ -5,10 +5,17 @@ import manIcon from '../assets/icons/man.svg'
 import womaIcon from '../assets/icons/woman.svg'
 import { User } from '../scripts/models/User'
 
+/**
+ * Home page. Presents the different users of the site.
+ * @returns {JSX.Element} A React component.
+ */
 function Home() {
   const [allUsersData, setAllUsersData] = useState<User[]>([])
   const sportSeeApi = new SportSeeApi()
 
+  /**
+   * useEffect hook for retrieving all users data from the sportSeeApi and store them in the state.
+   */
   useEffect(() => {
     async function getAllUsersData() {
       const fetchAllUsersData = await sportSeeApi.getAllUsersData()
