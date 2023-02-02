@@ -59,11 +59,6 @@ const UserPage = () => {
     // eslint-disable-next-line
   }, [])
 
-  // console.log(userData)
-  // console.log(userActivity?.sessions)
-  // console.log(userAverageSessions)
-  // console.log(userPerformance?.performances)
-
   return (
     <>
       {userData && (

@@ -9,6 +9,7 @@ import {
 import { NameType } from 'recharts/types/component/DefaultTooltipContent'
 import { ConvertedSessionLengthType } from '../scripts/types/Types'
 import { convertDuration } from '../scripts/utils/Utils'
+import PropTypes from 'prop-types'
 
 const CustomTooltip = ({ active, payload }: TooltipProps<number, NameType>) => {
   if (!active || !payload) {
@@ -76,6 +77,15 @@ const AverageSessionsChart = ({ sessions }: Props) => {
       </ResponsiveContainer>
     </div>
   )
+}
+
+AverageSessionsChart.propTypes = {
+  sessions: PropTypes.arrayOf(
+    PropTypes.shape({
+      day: PropTypes.string.isRequired,
+      sessionLength: PropTypes.number.isRequired,
+    })
+  ).isRequired,
 }
 
 export default AverageSessionsChart

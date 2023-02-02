@@ -10,6 +10,7 @@ import {
 } from 'recharts'
 import { NameType } from 'recharts/types/component/DefaultTooltipContent'
 import { SessionActivityType } from '../scripts/types/Types'
+import PropTypes from 'prop-types'
 
 const caloriesCoef = 0.2
 
@@ -100,7 +101,7 @@ const ActivityChart = ({ sessions }: Props) => {
           <Tooltip
             offset={32}
             content={<CustomTooltip />}
-            cursor={{opacity: '0.3'}}
+            cursor={{ opacity: '0.3' }}
           />
           <Bar
             dataKey="kilogram"
@@ -118,6 +119,16 @@ const ActivityChart = ({ sessions }: Props) => {
       </ResponsiveContainer>
     </div>
   )
+}
+
+ActivityChart.propTypes = {
+  sessions: PropTypes.arrayOf(
+    PropTypes.shape({
+      day: PropTypes.string.isRequired,
+      kilogram: PropTypes.number.isRequired,
+      calories: PropTypes.number.isRequired,
+    })
+  ).isRequired,
 }
 
 export default ActivityChart

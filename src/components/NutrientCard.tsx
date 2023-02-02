@@ -3,6 +3,7 @@ import proteinsIcon from '../assets/icons/proteins.svg'
 import carbsIcon from '../assets/icons/carbs.svg'
 import fatsIcon from '../assets/icons/fats.svg'
 import { numberToString } from '../scripts/utils/Utils'
+import PropTypes from 'prop-types'
 
 type Props = {
   nutrient: 'calories' | 'proteins' | 'carbs' | 'fats'
@@ -64,6 +65,12 @@ const NutrientCard = ({ nutrient, quantity }: Props) => {
       </div>
     </div>
   )
+}
+
+NutrientCard.propTypes = {
+  nutrient: PropTypes.oneOf(['calories', 'proteins', 'carbs', 'fats'])
+    .isRequired,
+  quantity: PropTypes.number,
 }
 
 export default NutrientCard

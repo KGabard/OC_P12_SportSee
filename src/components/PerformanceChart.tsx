@@ -10,6 +10,7 @@ import {
 } from 'recharts'
 import { NameType } from 'recharts/types/component/DefaultTooltipContent'
 import { ConvertedPerformanceDataType } from '../scripts/types/Types'
+import PropTypes from 'prop-types'
 
 const CustomTooltip = ({
   active,
@@ -76,6 +77,15 @@ const PerformanceChart = ({ performances }: Props) => {
       </ResponsiveContainer>
     </div>
   )
+}
+
+PerformanceChart.propTypes = {
+  performances: PropTypes.arrayOf(
+    PropTypes.shape({
+      kind: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
+    })
+  ).isRequired,
 }
 
 export default PerformanceChart

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 type Props = {
   picture: string
@@ -17,6 +18,13 @@ const UserCard = ({ picture, firstName, lastName, id }: Props) => {
       </div>
     </Link>
   )
+}
+
+UserCard.prototype = {
+  picture: PropTypes.string.isRequired,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 }
 
 export default UserCard

@@ -1,4 +1,5 @@
 import { RadialBar, RadialBarChart, ResponsiveContainer } from 'recharts'
+import PropTypes from 'prop-types'
 
 type Props = {
   score: number
@@ -28,7 +29,7 @@ const ScoreChart = ({ score }: Props) => {
       <div className="score-chart__circle-container">
         <div className="score-chart__circle"></div>
       </div>
-      <ResponsiveContainer >
+      <ResponsiveContainer>
         <RadialBarChart
           className="score-chart__chart"
           innerRadius="55%"
@@ -43,11 +44,19 @@ const ScoreChart = ({ score }: Props) => {
             bottom: 0,
           }}
         >
-          <RadialBar className="score-chart__chart__bar" dataKey="value" cornerRadius={100} />
+          <RadialBar
+            className="score-chart__chart__bar"
+            dataKey="value"
+            cornerRadius={100}
+          />
         </RadialBarChart>
       </ResponsiveContainer>
     </div>
   )
+}
+
+ScoreChart.prototype = {
+  score: PropTypes.number.isRequired,
 }
 
 export default ScoreChart
