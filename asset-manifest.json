@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/OC_P12_SportSee/static/css/main.db5970d2.css",
+    "main.css": "/OC_P12_SportSee/static/css/main.76a8d4db.css",
     "main.js": "/OC_P12_SportSee/static/js/main.bf3bee91.js",
     "static/media/sport-see-logo-big.png": "/OC_P12_SportSee/static/media/sport-see-logo-big.231a6da56bd8a5133afa.png",
     "static/media/man.svg": "/OC_P12_SportSee/static/media/man.3cc2cea59d94665056c0893a3a172089.svg",
@@ -15,11 +15,11 @@
     "static/media/calories.svg": "/OC_P12_SportSee/static/media/calories.25fef86ed5860200bdf90f9cd185e1e3.svg",
     "static/media/burger.svg": "/OC_P12_SportSee/static/media/burger.6a9333454a67c4544dc5d60c639e08ef.svg",
     "static/media/weight.svg": "/OC_P12_SportSee/static/media/weight.9d22814b98d0ca386d9ddacded4eae80.svg",
-    "main.db5970d2.css.map": "/OC_P12_SportSee/static/css/main.db5970d2.css.map",
+    "main.76a8d4db.css.map": "/OC_P12_SportSee/static/css/main.76a8d4db.css.map",
     "main.bf3bee91.js.map": "/OC_P12_SportSee/static/js/main.bf3bee91.js.map"
   },
   "entrypoints": [
-    "static/css/main.db5970d2.css",
+    "static/css/main.76a8d4db.css",
     "static/js/main.bf3bee91.js"
   ]
 }
