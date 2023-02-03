@@ -4,6 +4,7 @@ import { SportSeeApi } from '../scripts/api/SportSeeApi'
 import manIcon from '../assets/icons/man.svg'
 import womaIcon from '../assets/icons/woman.svg'
 import { User } from '../scripts/models/User'
+import LoadingUserCard from '../components/LoadingUserCard'
 
 /**
  * Home page. Presents the different users of the site.
@@ -37,7 +38,13 @@ function Home() {
         Veuillez sélectionner un <em className="highlight">utilisateur</em>
       </h1>
       <div className="home__users-container">
-        {allUsersData &&
+        {allUsersData.length === 0 && (
+          <>
+            <LoadingUserCard />
+            <LoadingUserCard />
+          </>
+        )}
+        {allUsersData.length > 0 &&
           allUsersData.map((user, index) => {
             let userPicture = ''
             switch (index) {

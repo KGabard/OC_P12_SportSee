@@ -31,7 +31,7 @@
     <input type="text" id="nav-search" placeholder="Search" />
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Community">Community</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Router">Router</a></li><li><a href="global.html#Settings">Settings</a></li><li><a href="global.html#SideBar">SideBar</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Community">Community</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Loader">Loader</a></li><li><a href="global.html#LoadingUserCard">LoadingUserCard</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Router">Router</a></li><li><a href="global.html#Settings">Settings</a></li><li><a href="global.html#SideBar">SideBar</a></li></ul>
     
 </nav>
 
@@ -62,32 +62,90 @@
 
 
     <section class="readme usertext">
-        <article><h1>Getting Started with Create React App</h1>
-<p>This project was bootstrapped with <a href="https://github.com/facebook/create-react-app">Create React App</a>.</p>
-<h2>Available Scripts</h2>
-<p>In the project directory, you can run:</p>
-<h3><code>npm start</code></h3>
-<p>Runs the app in the development mode.<br>
-Open <a href="http://localhost:3000">http://localhost:3000</a> to view it in the browser.</p>
-<p>The page will reload if you make edits.<br>
-You will also see any lint errors in the console.</p>
-<h3><code>npm test</code></h3>
-<p>Launches the test runner in the interactive watch mode.<br>
-See the section about <a href="https://facebook.github.io/create-react-app/docs/running-tests">running tests</a> for more information.</p>
-<h3><code>npm run build</code></h3>
-<p>Builds the app for production to the <code>build</code> folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.</p>
-<p>The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!</p>
-<p>See the section about <a href="https://facebook.github.io/create-react-app/docs/deployment">deployment</a> for more information.</p>
-<h3><code>npm run eject</code></h3>
-<p><strong>Note: this is a one-way operation. Once you <code>eject</code>, you can’t go back!</strong></p>
-<p>If you aren’t satisfied with the build tool and configuration choices, you can <code>eject</code> at any time. This command will remove the single build dependency from your project.</p>
-<p>Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except <code>eject</code> will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.</p>
-<p>You don’t have to ever use <code>eject</code>. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.</p>
-<h2>Learn More</h2>
-<p>You can learn more in the <a href="https://facebook.github.io/create-react-app/docs/getting-started">Create React App documentation</a>.</p>
-<p>To learn React, check out the <a href="https://reactjs.org/">React documentation</a>.</p></article>
+        <article><h1>OC Projet n°12 : SportSee</h1>
+<h2>Objectifs</h2>
+<ul>
+<li>Intégrer une application React à partir de maquettes.</li>
+<li>Développer l'application avec Typecscript.</li>
+<li>Mettre en place un système d'appels API vers un backend ou des données mockées.</li>
+<li>Affichage de données sous forme de graphiques à l'aide de la librairie Recharts.</li>
+<li>Utilisation des PropTypes pour un meilleur contrôle des props.</li>
+<li>Mise en place d'une JsDoc.</li>
+</ul>
+<h2>Description</h2>
+<p>L'application SportSee permet à ses utilisateurs d'assurer un suivi des données relatives à leurs entraînements sportifs.</p>
+<h2>Technologies</h2>
+<p>Framework :</p>
+<ul>
+<li>React</li>
+</ul>
+<p>Langages :</p>
+<ul>
+<li>Typescript</li>
+<li>HTML</li>
+<li>CSS</li>
+</ul>
+<p>Outils :</p>
+<ul>
+<li>Recharts</li>
+<li>React Router</li>
+<li>PropTypes</li>
+<li>JsDoc</li>
+<li>SASS</li>
+</ul>
+<h2>Maquettes</h2>
+<p>La maquette est fournie par Openclassrooms : <a href="https://www.figma.com/file/BMomGVZqLZb811mDMShpLu/UI-design-Sportify-FR?node-id=0%3A1">ici</a></p>
+<h2>Démo du site</h2>
+<p>La démo du site est disponible : <a href="https://kgabard.github.io/OC_P12_SportSee/">ici</a></p>
+<h2>Guide d'installation et d'utilisation :</h2>
+<p>Le projet utilise des packages Node et utilise npm, donc l'installation de Node.js dans votre IDE est requise.</p>
+<p>Une fois que Node.js a été ajouté avec succès à votre IDE, vous devrez :</p>
+<ul>
+<li>Forker ce repository.</li>
+<li>Le cloner localement avec <code>git clone</code></li>
+</ul>
+<p>Ensuite, vous devrez installer toutes les dépendances du projet avec <code>npm install</code>.</p>
+<p>Pour lancer le projet il ne vous reste plus qu'à utiliser la commande : <code>npm start</code>.</p>
+<p>En environnement de développement les requêtes API sont faite vers les données mockées locales. Si vous le souhaitez vous pouvez faire vos requêtes API vers le backend en ligne présent <a href="https://oc-p12-sportsee-backend.onrender.com">ici</a>.</p>
+<p>Pour cela il vous suffit de faire cette modification dans le fichiers &quot;src/scripts/api/SportSeeApi.ts&quot; :</p>
+<p>Avant :</p>
+<pre class="prettyprint source lang-js"><code>  constructor() {
+    if (process.env.NODE_ENV === 'development') {
+      this._url = 'mockData/user/'
+      this._sufix = '.json'
+    } else {
+      this._url = 'https://oc-p12-sportsee-backend.onrender.com/user/'
+      this._sufix = ''
+    }
+  }
+</code></pre>
+<p>Après :</p>
+<pre class="prettyprint source lang-js"><code>  constructor() {
+    if (process.env.NODE_ENV !== 'development') {
+      this._url = 'mockData/user/'
+      this._sufix = '.json'
+    } else {
+      this._url = 'https://oc-p12-sportsee-backend.onrender.com/user/'
+      this._sufix = ''
+    }
+  }
+</code></pre>
+<h2>Règles de convention de nommage pour ce projet :</h2>
+<h3>SCSS :</h3>
+<p>Pour les noms de variables et de classes : <code>kebab-case</code></p>
+<pre class="prettyprint source"><code>  ex: .user-page{...}
+  ex: $highlight-primary: #ff0101
+</code></pre>
+<h3>JS :</h3>
+<p>Pour les noms de variables et de fonctions : <code>camelCase</code></p>
+<pre class="prettyprint source"><code>  ex: const caloriesCoef = 0.2
+  ex: function convertDuration(duration) {...}
+</code></pre>
+<p>Pour les classes et interfaces : <code>PascalCase</code></p>
+<pre class="prettyprint source"><code>  ex: class AverageSessions {...}
+  ex: interface UserDataType {...}
+</code></pre>
+<p>JH : 5</p></article>
     </section>
 
 
@@ -102,7 +160,7 @@ Your app is ready to be deployed!</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Thu Feb 02 2023 20:56:43 GMT+0100 (heure normale d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Fri Feb 03 2023 13:03:59 GMT+0100 (heure normale d’Europe centrale) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

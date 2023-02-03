@@ -14,6 +14,7 @@
 
   &__image {
     width: 256px;
+    aspect-ratio: 1;
   }
 
   &__infos-container {
@@ -36,6 +37,7 @@
 
     &__image {
       width: 192px;
+      aspect-ratio: 1;
     }
   }
 }

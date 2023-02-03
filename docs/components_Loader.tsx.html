@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>router/Router.tsx - Documentation</title>
+    <title>components/Loader.tsx - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -37,7 +37,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">router/Router.tsx</h1>
+    <h1 class="page-title">components/Loader.tsx</h1>
     
 
     
@@ -47,30 +47,21 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { Route, Routes } from 'react-router-dom'
-import Community from '../pages/Community'
-import UserPage from '../pages/UserPage'
-import Profile from '../pages/Profile'
-import Settings from '../pages/Settings'
-import Home from '../pages/Home'
-
-/**
- * Router component for handling routing in the application.
- * @returns {JSX.Element} Routed components based on the path.
+            <pre class="prettyprint source linenums"><code>/**
+ * Displays a loader when data is loading.
+ * @returns {JSX.Element}
  */
-const Router = () => {
+const Loader = () => {
   return (
-    &lt;Routes>
-      &lt;Route path="/" element={&lt;Home />}>&lt;/Route>
-      &lt;Route path="/user/:id" element={&lt;UserPage />}>&lt;/Route>
-      &lt;Route path="/profile" element={&lt;Profile />}>&lt;/Route>
-      &lt;Route path="/settings" element={&lt;Settings />}>&lt;/Route>
-      &lt;Route path="/community" element={&lt;Community />}>&lt;/Route>
-    &lt;/Routes>
+    &lt;div className="loader">
+      &lt;div className="loader__square loader__square--1">&lt;/div>
+      &lt;div className="loader__square loader__square--2">&lt;/div>
+      &lt;div className="loader__square loader__square--3">&lt;/div>
+    &lt;/div>
   )
 }
 
-export default Router
+export default Loader
 </code></pre>
         </article>
     </section>

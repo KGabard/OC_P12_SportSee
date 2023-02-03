@@ -36,3 +36,27 @@
     rotate: -80deg;
   }
 }
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 100%;
+  }
+
+  40% {
+    opacity: 20%;
+  }
+
+  80% {
+    opacity: 100%;
+  }
+
+  100% {
+    opacity: 100%;
+  }
+}

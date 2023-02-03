@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ActivityChart from '../components/ActivityChart'
 import AverageSessionsChart from '../components/AverageSessionsChart'
+import Loader from '../components/Loader'
 import NutrientCard from '../components/NutrientCard'
 import PerformanceChart from '../components/PerformanceChart'
 import ScoreChart from '../components/ScoreChart'
@@ -68,6 +69,7 @@ const UserPage = () => {
 
   return (
     <>
+      {!userData && <Loader />}
       {userData && (
         <div className="user-page">
           <div className="user-page__header-container">
