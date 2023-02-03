@@ -1,46 +1,77 @@
-# Getting Started with Create React App
+# OC Projet n°12 : SportSee
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Objectifs
+- Intégrer une application React à partir de maquettes.
+- Développer l'application avec Typecscript.
+- Mettre en place un système d'appels API vers un backend ou des données mockées.
+- Affichage de données sous forme de graphiques à l'aide de la librairie Recharts.
+- Utilisation des PropTypes pour un meilleur contrôle des props.
+- Mise en place d'une JsDoc.
 
-## Available Scripts
+## Description
+L'application SportSee permet à ses utilisateurs d'assurer un suivi des données relatives à leurs entraînements sportifs.
 
-In the project directory, you can run:
+## Technologies
+Framework :
+- React
 
-### `npm start`
+Langages :
+- Typescript
+- HTML
+- CSS
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Outils :
+- Recharts
+- React Router
+- PropTypes
+- JsDoc
+- SASS
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Maquettes
+La maquette est fournie par Openclassrooms : [ici](https://www.figma.com/file/BMomGVZqLZb811mDMShpLu/UI-design-Sportify-FR?node-id=0%3A1)
 
-### `npm test`
+## Démo du site
+La démo du site est disponible : [ici](https://kgabard.github.io/OC_P12_SportSee/)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Guide d'installation et d'utilisation :
+Le projet utilise des packages Node et utilise npm, donc l'installation de Node.js dans votre IDE est requise.
 
-### `npm run build`
+Une fois que Node.js a été ajouté avec succès à votre IDE, vous devrez :
+- Forker ce repository.
+- Le cloner localement avec `git clone`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Ensuite, vous devrez installer toutes les dépendances du projet avec `npm install`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Pour lancer le projet il ne vous reste plus qu'à utiliser la commande : `npm start`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+En environnement de développement les requêtes API sont faite vers les données mockées locales. Si vous le souhaitez vous pouvez faire vos requêtes API vers le backend en ligne présent [ici](https://oc-p12-sportsee-backend.onrender.com).
 
-### `npm run eject`
+Pour cela il vous suffit de faire cette modification dans le fichiers "src/scripts/api/SportSeeApi.ts" :
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Avant :
+```js
+  constructor() {
+    if (process.env.NODE_ENV === 'development') {
+      this._url = 'mockData/user/'
+      this._sufix = '.json'
+    } else {
+      this._url = 'https://oc-p12-sportsee-backend.onrender.com/user/'
+      this._sufix = ''
+    }
+  }
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Après :
+```js
+  constructor() {
+    if (process.env.NODE_ENV !== 'development') {
+      this._url = 'mockData/user/'
+      this._sufix = '.json'
+    } else {
+      this._url = 'https://oc-p12-sportsee-backend.onrender.com/user/'
+      this._sufix = ''
+    }
+  }
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+JH : 5
