@@ -74,4 +74,26 @@ Après :
   }
 ```
 
+## Règles de convention de nommage pour ce projet :
+
+### SCSS :
+Pour les noms de variables et de classes : `kebab-case`
+```
+  ex: .user-page{...}
+  ex: $highlight-primary: #ff0101
+```
+
+### JS :
+Pour les noms de variables et de fonctions : `camelCase`
+```
+  ex: const caloriesCoef = 0.2
+  ex: function convertDuration(duration) {...}
+```
+
+Pour les classes et interfaces : `PascalCase`
+```
+  ex: class AverageSessions {...}
+  ex: interface UserDataType {...}
+```
+
 JH : 5
