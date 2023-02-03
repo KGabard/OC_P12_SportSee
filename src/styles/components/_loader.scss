@@ -5,6 +5,7 @@
   justify-content: center;
   align-items: center;
   gap: 16px;
+  flex: 1 1 0px;
 
   &__square {
     position: relative;
@@ -28,6 +29,14 @@
         animation-iteration-count: infinite;
         animation-delay: 300ms * $i;
       }
+    }
+  }
+}
+
+@include mobile {
+  .loader {
+    &__square {
+      top: 0px;
     }
   }
 }
