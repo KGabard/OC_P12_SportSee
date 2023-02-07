@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> scripts/models/Activity.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>scripts/models/Activity.ts</h1>
                 </header>
                 
 
@@ -89,39 +89,47 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import { ActivityType, SessionActivityType } from '../types/Types'
+import { convertDate } from '../utils/Utils'
 
 /**
- * Sidebar of the site. Contains icons and a copyright.
- * @returns {JSX.Element} A React component.
+ * Convert the session's date to a string format
+ * @param sessions Array of session activities
+ * @returns Array of session activities with converted date format
  */
-const SideBar = () => {
-  return (
-    &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
-        &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
-    &lt;/>
-  )
+const convertDays = (
+  sessions: SessionActivityType[]
+): SessionActivityType[] => {
+  return sessions.map((session) => {
+    return { ...session, day: convertDate(session.day) }
+  })
 }
 
-export default SideBar
+/**
+ * Class representing the activity data.
+ *
+ * @class Activity
+ *
+ * @param {ActivityType} _activity The original activity data.
+ * 
+ * @property {string} userId The id of the user.
+ * @property {SessionActivityType[]} sessions An array of session activities with converted date format.
+ */
+export class Activity {
+  _activity: ActivityType
+
+  constructor(activity: ActivityType) {
+    this._activity = activity
+  }
+
+  get userId() {
+    return this._activity.userId
+  }
+
+  get sessions() {
+    return convertDays(this._activity.sessions)
+  }
+}
 </code></pre>
         </article>
     </section>

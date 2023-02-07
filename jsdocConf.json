@@ -1,28 +1,28 @@
 {
-  "plugins": ["plugins/markdown"],
-  "recurseDepth": 10,
-  "opts": {
-    "template": "node_modules/docdash",
-    "destination": "./docs/",
-    "recurse": true
+  "tags": {
+      "allowUnknownTags": true,
+      "dictionaries": ["jsdoc","closure"]
   },
   "source": {
-    "include": ["./", "README.md"],
-    "includePattern": "\\.(jsx|js|ts|tsx)$",
-    "excludePattern": "node_modules"
+      "include": ["src"],
+      "includePattern": "\\.(jsx|js|ts|tsx)$",
+      "excludePattern": "(^|\\/|\\\\)_"
   },
-  "sourceType": "module",
-  "tags": {
-    "allowUnknownTags": true,
-    "dictionaries": ["jsdoc", "closure"]
+  "plugins": [
+      "node_modules/better-docs/typescript"
+  ],
+  "typescript": {
+      "moduleRoot": "test"
   },
-  "templates": {
-    "cleverLinks": false,
-    "monospaceLinks": false
+   "templates": {
+    "better-docs": {
+        "name": "My React components"
+      }
   },
-  "docdash": {
-    "sort": true,
-    "search": true,
-    "collapse": false
+  "opts": {
+      "template": "node_modules/better-docs",
+      "destination": "docs",
+      "recurse": true,
+      "readme": "README.md"
   }
 }

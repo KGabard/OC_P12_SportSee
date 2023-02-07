@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> components/ActivityIcon.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>components/ActivityIcon.tsx</h1>
                 </header>
                 
 
@@ -89,39 +89,55 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import yogaIcon from '../assets/icons/yoga.svg'
+import swimmingIcon from '../assets/icons/swimming.svg'
+import cyclingIcon from '../assets/icons/cycling.svg'
+import weightIcon from '../assets/icons/weight.svg'
+import PropTypes from 'prop-types'
+
+type Props = {
+  activity: 'yoga' | 'swimming' | 'cycling' | 'weight'
+}
 
 /**
- * Sidebar of the site. Contains icons and a copyright.
+ * ActivityIcon is a component that displays an icon based on the type of activity.
+ * @param {'yoga' | 'swimming' | 'cycling' | 'weight'} props.activity The type of activity.
  * @returns {JSX.Element} A React component.
  */
-const SideBar = () => {
+const ActivityIcon = ({ activity }: Props) => {
+  let currentIcon = ''
+
+  switch (activity) {
+    case 'yoga':
+      currentIcon = yogaIcon
+      break
+    case 'swimming':
+      currentIcon = swimmingIcon
+      break
+    case 'cycling':
+      currentIcon = cyclingIcon
+      break
+    case 'weight':
+      currentIcon = weightIcon
+      break
+
+    default:
+      break
+  }
+
   return (
-    &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
-        &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
-    &lt;/>
+    &lt;div className="activity-icon">
+      &lt;img src={currentIcon} alt="activity" className="activity-icon__image" />
+    &lt;/div>
   )
 }
 
-export default SideBar
+ActivityIcon.propTypes = {
+  activity: PropTypes.oneOf(['yoga', 'swimming', 'cycling', 'weight'])
+    .isRequired,
+}
+
+export default ActivityIcon
 </code></pre>
         </article>
     </section>

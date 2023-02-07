@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> pages/PageLayout.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>pages/PageLayout.tsx</h1>
                 </header>
                 
 
@@ -89,39 +89,32 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import { PropsWithChildren } from 'react'
+import Header from '../layouts/Header'
+import SideBar from '../layouts/SideBar'
+import PropTypes from 'prop-types'
 
 /**
- * Sidebar of the site. Contains icons and a copyright.
+ * General page layout. Arrange the header, the sidebar and the page body.
  * @returns {JSX.Element} A React component.
  */
-const SideBar = () => {
+const PageLayout = ({ children }: PropsWithChildren) => {
   return (
     &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
-        &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
+      &lt;Header />
+      &lt;div className="page-layout">
+        &lt;SideBar />
+        &lt;div className="page-body">{children}&lt;/div>
+      &lt;/div>
     &lt;/>
   )
 }
 
-export default SideBar
+PageLayout.prototype = {
+  children: PropTypes.node.isRequired
+}
+
+export default PageLayout
 </code></pre>
         </article>
     </section>

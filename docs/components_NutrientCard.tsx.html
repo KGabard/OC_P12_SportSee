@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> components/NutrientCard.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>components/NutrientCard.tsx</h1>
                 </header>
                 
 
@@ -89,39 +89,88 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import caloriesIcon from '../assets/icons/calories.svg'
+import proteinsIcon from '../assets/icons/proteins.svg'
+import carbsIcon from '../assets/icons/carbs.svg'
+import fatsIcon from '../assets/icons/fats.svg'
+import { numberToString } from '../scripts/utils/Utils'
+import PropTypes from 'prop-types'
+
+type Props = {
+  nutrient: 'calories' | 'proteins' | 'carbs' | 'fats'
+  quantity: number
+}
 
 /**
- * Sidebar of the site. Contains icons and a copyright.
+ * NutrientCard is a component that displays a card based on the type of nutrient.
+ * @param {'calories' | 'proteins' | 'carbs' | 'fats'} props.nutrient The type of nutrient.
+ * @param {number} props.quantity The quantity of nutrient.
  * @returns {JSX.Element} A React component.
  */
-const SideBar = () => {
+const NutrientCard = ({ nutrient, quantity }: Props) => {
+  let currentIcon = ''
+  let label = ''
+  let unit = ''
+  let color = ''
+
+  switch (nutrient) {
+    case 'calories':
+      currentIcon = caloriesIcon
+      label = 'Calories'
+      unit = 'kCal'
+      color = 'primary'
+      break
+    case 'proteins':
+      currentIcon = proteinsIcon
+      label = 'Protéines'
+      unit = 'g'
+      color = 'secondary'
+      break
+    case 'carbs':
+      currentIcon = carbsIcon
+      label = 'Glucides'
+      unit = 'g'
+      color = 'tertiary'
+      break
+    case 'fats':
+      currentIcon = fatsIcon
+      label = 'Lipides'
+      unit = 'g'
+      color = 'quaternary'
+      break
+
+    default:
+      break
+  }
+
   return (
-    &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
-        &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
-    &lt;/>
+    &lt;div className="nutrient-card">
+      &lt;div
+        className={`nutrient-card__icon-container nutrient-card__icon-container--${color}`}
+      >
+        &lt;img
+          src={currentIcon}
+          alt="nutrient"
+          className="nutrient-card__icon-container__icon"
+        />
+      &lt;/div>
+      &lt;div className="nutrient-card__infos-container">
+        &lt;p className="nutrient-card__infos-container__quantity">
+          {numberToString(quantity) + unit}
+        &lt;/p>
+        &lt;h2 className="nutrient-card__infos-container__label">{label}&lt;/h2>
+      &lt;/div>
+    &lt;/div>
   )
 }
 
-export default SideBar
+NutrientCard.propTypes = {
+  nutrient: PropTypes.oneOf(['calories', 'proteins', 'carbs', 'fats'])
+    .isRequired,
+  quantity: PropTypes.number,
+}
+
+export default NutrientCard
 </code></pre>
         </article>
     </section>

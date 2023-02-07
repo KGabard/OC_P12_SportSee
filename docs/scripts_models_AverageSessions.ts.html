@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> scripts/models/AverageSessions.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>scripts/models/AverageSessions.ts</h1>
                 </header>
                 
 
@@ -89,39 +89,78 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import {
+  AverageSessionsType,
+  ConvertedSessionLengthType,
+  SessionLengthType,
+} from '../types/Types'
 
 /**
- * Sidebar of the site. Contains icons and a copyright.
- * @returns {JSX.Element} A React component.
+ * Converts the number representation of the day of the week to its string representation.
+ * @param {SessionLengthType[]} sessions An array of objects representing the session length data.
+ * @returns {ConvertedSessionLengthType[]} An array of objects with the `day` property converted to its string representation.
  */
-const SideBar = () => {
-  return (
-    &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
-        &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
-    &lt;/>
-  )
+const convertDays = (
+  sessions: SessionLengthType[]
+): ConvertedSessionLengthType[] => {
+  return sessions.map((session) => {
+    let currentDay: string
+    switch (session.day) {
+      case 1:
+        currentDay = 'L'
+        break
+      case 2:
+        currentDay = 'M'
+        break
+      case 3:
+        currentDay = 'M'
+        break
+      case 4:
+        currentDay = 'J'
+        break
+      case 5:
+        currentDay = 'V'
+        break
+      case 6:
+        currentDay = 'S'
+        break
+      case 7:
+        currentDay = 'D'
+        break
+
+      default:
+        currentDay = 'Err.'
+        break
+    }
+    return { ...session, day: currentDay }
+  })
 }
 
-export default SideBar
+/**
+ * Class representing the average sessions data.
+ *
+ * @class AverageSessions
+ *
+ * @param {AverageSessionsType} _averageSession The original average session data.
+ *
+ * @property {string} userId The id of the user.
+ * @property {ConvertedSessionLengthType[]} sessions An array of average session data with the `day` property converted to its string representation.
+ */
+export class AverageSessions {
+  _averageSession: AverageSessionsType
+
+  constructor(averageSession: AverageSessionsType) {
+    this._averageSession = averageSession
+  }
+
+  get userId() {
+    return this._averageSession.userId
+  }
+
+  get sessions() {
+    return convertDays(this._averageSession.sessions)
+  }
+}
 </code></pre>
         </article>
     </section>

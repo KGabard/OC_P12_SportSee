@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> components/UserCard.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>components/UserCard.tsx</h1>
                 </header>
                 
 
@@ -89,39 +89,44 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+
+type Props = {
+  picture: string
+  firstName: string
+  lastName: string
+  id: number
+}
 
 /**
- * Sidebar of the site. Contains icons and a copyright.
+ * UserCard is a component that displays a card of the user with his picture, first name, last name and a link to the user page.
+ * @param {string} props.picture Picture of the user.
+ * @param {string} props.firstName First name of the user.
+ * @param {string} props.lastName Last name of the user.
+ * @param {number} props.id id of the user. Passed through the url.
  * @returns {JSX.Element} A React component.
  */
-const SideBar = () => {
+const UserCard = ({ picture, firstName, lastName, id }: Props) => {
   return (
-    &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
-        &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
-    &lt;/>
+    &lt;Link to={`/user/${id}`} className="user-card">
+      &lt;img src={picture} alt="utilisateur" className="user-card__image" />
+      &lt;div className="user-card__infos-container">
+        &lt;p className="user-card__infos-container__first-name">{firstName}&lt;/p>
+        &lt;p className="user-card__infos-container__last-name">{lastName}&lt;/p>
+      &lt;/div>
+    &lt;/Link>
   )
 }
 
-export default SideBar
+UserCard.prototype = {
+  picture: PropTypes.string.isRequired,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+}
+
+export default UserCard
 </code></pre>
         </article>
     </section>

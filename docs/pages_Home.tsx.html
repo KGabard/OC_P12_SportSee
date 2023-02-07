@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> pages/Home.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>pages/Home.tsx</h1>
                 </header>
                 
 
@@ -89,39 +89,82 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import { useEffect, useState } from 'react'
+import UserCard from '../components/UserCard'
+import { SportSeeApi } from '../scripts/api/SportSeeApi'
+import manIcon from '../assets/icons/man.svg'
+import womaIcon from '../assets/icons/woman.svg'
+import { User } from '../scripts/models/User'
+import LoadingUserCard from '../components/LoadingUserCard'
 
 /**
- * Sidebar of the site. Contains icons and a copyright.
+ * Home page. Presents the different users of the site.
  * @returns {JSX.Element} A React component.
  */
-const SideBar = () => {
+function Home() {
+  const [allUsersData, setAllUsersData] = useState&lt;User[]>([])
+  const sportSeeApi = new SportSeeApi()
+
+  /**
+   * useEffect hook for retrieving all users data from the sportSeeApi and store them in the state.
+   */
+  useEffect(() => {
+    async function getAllUsersData() {
+      const fetchAllUsersData = await sportSeeApi.getAllUsersData()
+      if (fetchAllUsersData &amp;&amp; fetchAllUsersData.length > 0) {
+        const usersArray: User[] = []
+        fetchAllUsersData.forEach((fetchUser) => {
+          usersArray.push(new User(fetchUser))
+        })
+        setAllUsersData(usersArray)
+      }
+    }
+    getAllUsersData()
+    // eslint-disable-next-line
+  }, [])
+
   return (
-    &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
-        &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
-    &lt;/>
+    &lt;div className="home">
+      &lt;h1 className="home__header">
+        Veuillez sélectionner un &lt;em className="highlight">utilisateur&lt;/em>
+      &lt;/h1>
+      &lt;div className="home__users-container">
+        {allUsersData.length === 0 &amp;&amp; (
+          &lt;>
+            &lt;LoadingUserCard />
+            &lt;LoadingUserCard />
+          &lt;/>
+        )}
+        {allUsersData.length > 0 &amp;&amp;
+          allUsersData.map((user, index) => {
+            let userPicture = ''
+            switch (index) {
+              case 0:
+                userPicture = manIcon
+                break
+              case 1:
+                userPicture = womaIcon
+                break
+
+              default:
+                break
+            }
+            return (
+              &lt;UserCard
+                key={user.id}
+                picture={userPicture}
+                firstName={user.firstName}
+                lastName={user.lastName}
+                id={user.id}
+              />
+            )
+          })}
+      &lt;/div>
+    &lt;/div>
   )
 }
 
-export default SideBar
+export default Home
 </code></pre>
         </article>
     </section>

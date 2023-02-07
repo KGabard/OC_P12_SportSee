@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> components/ActivityChart.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>components/ActivityChart.tsx</h1>
                 </header>
                 
 
@@ -89,39 +89,156 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import {
+  XAxis,
+  Tooltip,
+  ResponsiveContainer,
+  TooltipProps,
+  BarChart,
+  CartesianGrid,
+  YAxis,
+  Bar,
+} from 'recharts'
+import { NameType } from 'recharts/types/component/DefaultTooltipContent'
+import { SessionActivityType } from '../scripts/types/Types'
+import PropTypes from 'prop-types'
+
+const caloriesCoef = 0.2
 
 /**
- * Sidebar of the site. Contains icons and a copyright.
- * @returns {JSX.Element} A React component.
+ * CustomTooltip renders a custom tooltip for the activity chart.
+ * @param {boolean} props.active Specifies if the tooltip is active or not.
+ * @param {NameType} props.payload Data to be displayed in the tooltip.
  */
-const SideBar = () => {
+const CustomTooltip = ({ active, payload }: TooltipProps&lt;number, NameType>) => {
+  if (!active || !payload) {
+    return null
+  }
+
   return (
-    &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
-        &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
-    &lt;/>
+    &lt;div className="activity-chart__tooltip">
+      &lt;p className="activity-chart__tooltip__label">
+        {payload[0].value !== undefined &amp;&amp; payload[0].value}kg
+      &lt;/p>
+      &lt;p className="activity-chart__tooltip__label">
+        {payload[1].value !== undefined &amp;&amp;
+          Math.round(payload[1].value / caloriesCoef)}
+        kCal
+      &lt;/p>
+    &lt;/div>
   )
 }
 
-export default SideBar
+/**
+ * Applies a coefficient to the calories value in each session activity data.
+ * @param {SessionActivityType[]} sessions Array of session activity data.
+ * @param {number} coef The coefficient to apply to the calories value.
+ * @returns {SessionActivityType[]} Array of session activity data with the applied coefficient.
+ */
+const applyCoefToCalories = (
+  sessions: SessionActivityType[],
+  coef: number
+): SessionActivityType[] => {
+  return sessions.map((session) => {
+    return { ...session, calories: session.calories * coef }
+  })
+}
+
+type Props = {
+  sessions: SessionActivityType[]
+}
+
+/**
+ * ActivityChart renders a bar chart that displays activity data
+ * @param {SessionActivityType[]} props.sessions Array of session activity data
+ * @returns {JSX.Element} A React component
+ */
+const ActivityChart = ({ sessions }: Props) => {
+  const sessionsWithCoef = applyCoefToCalories(sessions, caloriesCoef)
+
+  return (
+    &lt;div className="activity-chart">
+      &lt;h2 className="activity-chart__title">Activité quotidienne&lt;/h2>
+      &lt;div className="activity-chart__legend">
+        &lt;p className="activity-chart__legend__kilogram">Poids (kg)&lt;/p>
+        &lt;p className="activity-chart__legend__calories">
+          Calories brûlées (kCal)
+        &lt;/p>
+      &lt;/div>
+      &lt;ResponsiveContainer>
+        &lt;BarChart
+          className="activity-chart__chart"
+          data={sessionsWithCoef}
+          margin={{
+            top: 96,
+            right: 16,
+            left: 32,
+            bottom: 16,
+          }}
+        >
+          &lt;CartesianGrid
+            strokeDasharray="2 2"
+            horizontal={true}
+            vertical={false}
+          />
+          &lt;XAxis
+            dataKey="day"
+            tickLine={false}
+            axisLine={false}
+            tick={{
+              fill: '#000',
+              opacity: 0.7,
+              fontFamily: 'Roboto, sans-serif',
+              fontWeight: '500',
+              fontSize: '12px',
+            }}
+          />
+          &lt;YAxis
+            orientation="right"
+            tickLine={false}
+            axisLine={false}
+            tick={{
+              fill: '#000',
+              opacity: 0.7,
+              fontFamily: 'Roboto, sans-serif',
+              fontWeight: '500',
+              fontSize: '12px',
+            }}
+          />
+          &lt;Tooltip
+            offset={32}
+            content={&lt;CustomTooltip />}
+            cursor={{ opacity: '0.3' }}
+          />
+          &lt;Bar
+            dataKey="kilogram"
+            fill="#000"
+            radius={[10, 10, 0, 0]}
+            barSize={10}
+          />
+          &lt;Bar
+            dataKey="calories"
+            fill="var(--highlight-primary)"
+            radius={[10, 10, 0, 0]}
+            barSize={10}
+          />
+        &lt;/BarChart>
+      &lt;/ResponsiveContainer>
+    &lt;/div>
+  )
+}
+
+ActivityChart.propTypes = {
+  sessions: PropTypes.arrayOf(
+    PropTypes.shape({
+      day: PropTypes.string.isRequired,
+      kilogram: PropTypes.number.isRequired,
+      calories: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+}
+
+export default ActivityChart
 </code></pre>
         </article>
     </section>

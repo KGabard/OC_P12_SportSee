@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> scripts/models/User.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>scripts/models/User.ts</h1>
                 </header>
                 
 
@@ -89,39 +89,68 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import { UserDataType } from '../types/Types'
 
 /**
- * Sidebar of the site. Contains icons and a copyright.
- * @returns {JSX.Element} A React component.
+ * Class User represents a user with its own id, first name, last name, age, and various sport-related data.
+ *
+ * @class User
+ *
+ * @param {UserDataType} _userData The original user data.
+ *
+ * @property {string} id The id of the user.
+ * @property {string} firstName The first name of the user.
+ * @property {string} lastName The last name of the user.
+ * @property {number} age The age of the user.
+ * @property {number} todayScore The score of the user in percent.
+ * @property {number} calorieCount The calorie count of the user.
+ * @property {number} proteinCount The protein count of the user.
+ * @property {number} carbsCount The carbohydrate count of the user.
+ * @property {number} lipidCount The lipid count of the user.
  */
-const SideBar = () => {
-  return (
-    &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
-        &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
-    &lt;/>
-  )
-}
+export class User {
+  _userData: UserDataType
 
-export default SideBar
+  constructor(userData: UserDataType) {
+    this._userData = userData
+  }
+
+  get id() {
+    return this._userData.id
+  }
+
+  get firstName() {
+    return this._userData.userInfos.firstName
+  }
+
+  get lastName() {
+    return this._userData.userInfos.lastName
+  }
+
+  get age() {
+    return this._userData.userInfos.age
+  }
+
+  get todayScore() {
+    return this._userData.todayScore * 100
+  }
+
+  get calorieCount() {
+    return this._userData.keyData.calorieCount
+  }
+
+  get proteinCount() {
+    return this._userData.keyData.proteinCount
+  }
+
+  get carbsCount() {
+    return this._userData.keyData.carbohydrateCount
+  }
+
+  get lipidCount() {
+    return this._userData.keyData.lipidCount
+  }
+}
 </code></pre>
         </article>
     </section>

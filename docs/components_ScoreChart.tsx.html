@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> components/ScoreChart.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>components/ScoreChart.tsx</h1>
                 </header>
                 
 
@@ -89,39 +89,73 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import { RadialBar, RadialBarChart, ResponsiveContainer } from 'recharts'
+import PropTypes from 'prop-types'
+
+type Props = {
+  score: number
+}
 
 /**
- * Sidebar of the site. Contains icons and a copyright.
+ * ScoreChart renders a radial bar chart that displays the today score.
+ * @param {number} props.score Score to display.
  * @returns {JSX.Element} A React component.
  */
-const SideBar = () => {
+const ScoreChart = ({ score }: Props) => {
+  const data = [
+    {
+      name: 'max',
+      value: 100,
+      fill: 'transparent',
+    },
+    {
+      name: 'score',
+      value: score,
+      fill: 'var(--highlight-primary)',
+    },
+  ]
+
   return (
-    &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
-        &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
-    &lt;/>
+    &lt;div className="score-chart">
+      &lt;h2 className="score-chart__title">Score&lt;/h2>
+      &lt;div className="score-chart__infos">
+        &lt;p className="score-chart__infos__percentage">{`${score}%`}&lt;/p>
+        &lt;p className="score-chart__infos__text">{'de votre\nobjectif'}&lt;/p>
+      &lt;/div>
+      &lt;div className="score-chart__circle-container">
+        &lt;div className="score-chart__circle">&lt;/div>
+      &lt;/div>
+      &lt;ResponsiveContainer>
+        &lt;RadialBarChart
+          className="score-chart__chart"
+          innerRadius="55%"
+          outerRadius="80%"
+          data={data}
+          startAngle={90}
+          endAngle={450}
+          margin={{
+            top: 0,
+            right: 0,
+            left: 0,
+            bottom: 0,
+          }}
+        >
+          &lt;RadialBar
+            className="score-chart__chart__bar"
+            dataKey="value"
+            cornerRadius={100}
+          />
+        &lt;/RadialBarChart>
+      &lt;/ResponsiveContainer>
+    &lt;/div>
   )
 }
 
-export default SideBar
+ScoreChart.prototype = {
+  score: PropTypes.number.isRequired,
+}
+
+export default ScoreChart
 </code></pre>
         </article>
     </section>

@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> scripts/api/SportSeeApi.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>scripts/api/SportSeeApi.ts</h1>
                 </header>
                 
 
@@ -89,39 +89,119 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import {
+  ActivityType,
+  AverageSessionsType,
+  PerformanceType,
+  UserDataType,
+} from '../types/Types'
 
-/**
- * Sidebar of the site. Contains icons and a copyright.
- * @returns {JSX.Element} A React component.
- */
-const SideBar = () => {
-  return (
-    &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
-        &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
-    &lt;/>
-  )
+async function fetchFrom(url: string) {
+  try {
+    const res = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+    const data = await res.json()
+
+    if (!res.ok) {
+      Promise.reject(new Error('Error in 4xx or 5xx range'))
+      return
+    }
+
+    return data.data
+  } catch (error: unknown) {
+    console.log(error)
+  }
 }
 
-export default SideBar
+/**
+ * A class for making API calls to retrieve user data.
+ *
+ * @class SportSeeApi
+ * @param {string} _url Base URL of the API.
+ * @param {string} _sufix The suffix to append to the URL (either '.json' or '').
+ */
+export class SportSeeApi {
+  _url: string
+  _sufix: '.json' | ''
+
+  constructor() {
+    if (process.env.NODE_ENV === 'development') {
+      this._url = 'mockData/user/'
+      this._sufix = '.json'
+    } else {
+      this._url = 'https://oc-p12-sportsee-backend.onrender.com/user/'
+      this._sufix = ''
+    }
+  }
+
+  /**
+   * Makes an API call to retrieve data for all users.
+   *
+   * @method
+   * @returns {Promise&lt;UserDataType[] | undefined>} Promise resolving to an array of user data objects, or undefined if an error occurs.
+   */
+  async getAllUsersData(): Promise&lt;UserDataType[] | undefined> {
+    const allUsersDataUrl = this._url + 'all' + this._sufix
+    return fetchFrom(allUsersDataUrl)
+  }
+
+  /**
+   * Makes an API call to retrieve data for a single user.
+   *
+   * @method
+   * @param {number} id ID of the user to retrieve data for.
+   * @returns {Promise&lt;UserDataType | undefined>} Promise resolving to a user data object, or undefined if an error occurs.
+   */
+  async getUserData(id: number): Promise&lt;UserDataType | undefined> {
+    const userDataUrl = this._url + id.toString() + this._sufix
+    return fetchFrom(userDataUrl)
+  }
+
+  /**
+   * Makes an API call to retrieve activity data for a single user.
+   *
+   * @method
+   * @param {number} id ID of the user to retrieve activity data for.
+   * @returns {Promise&lt;ActivityType | undefined>} Promise resolving to an activity data object, or undefined if an error occurs.
+   */
+  async getUserActivity(id: number): Promise&lt;ActivityType | undefined> {
+    const userActivityUrl =
+      this._url + id.toString() + '/activity' + this._sufix
+    return fetchFrom(userActivityUrl)
+  }
+
+  /**
+   * Makes an API call to retrieve average sessions data for a single user.
+   *
+   * @method
+   * @param {number} id ID of the user to retrieve average sessions data for.
+   * @returns {Promise&lt;AverageSessionsType | undefined>} Promise resolving to an average sessions data object, or undefined if an error occurs.
+   */
+  async getUserAverageSessions(
+    id: number
+  ): Promise&lt;AverageSessionsType | undefined> {
+    const userAverageSessionsUrl =
+      this._url + id.toString() + '/average-sessions' + this._sufix
+    return fetchFrom(userAverageSessionsUrl)
+  }
+
+  /**
+   * Makes an API call to retrieve performance data for a single user.
+   *
+   * @method
+   * @param {number} id ID of the user to retrieve performance data for.
+   * @returns {Promise&lt;PerformanceType | undefined>} Promise resolving to a performance data object, or undefined if an error occurs.
+   */
+  async getUserPerformance(id: number): Promise&lt;PerformanceType | undefined> {
+    const userPerformanceUrl =
+      this._url + id.toString() + '/performance' + this._sufix
+    return fetchFrom(userPerformanceUrl)
+  }
+}
 </code></pre>
         </article>
     </section>

@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> pages/UserPage.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>pages/UserPage.tsx</h1>
                 </header>
                 
 
@@ -89,39 +89,133 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import ActivityChart from '../components/ActivityChart'
+import AverageSessionsChart from '../components/AverageSessionsChart'
+import Loader from '../components/Loader'
+import NutrientCard from '../components/NutrientCard'
+import PerformanceChart from '../components/PerformanceChart'
+import ScoreChart from '../components/ScoreChart'
+import { SportSeeApi } from '../scripts/api/SportSeeApi'
+import { Activity } from '../scripts/models/Activity'
+import { AverageSessions } from '../scripts/models/AverageSessions'
+import { Performance } from '../scripts/models/Performance'
+import { User } from '../scripts/models/User'
 
 /**
- * Sidebar of the site. Contains icons and a copyright.
+ * User page. Presents data of the user with charts.
  * @returns {JSX.Element} A React component.
  */
-const SideBar = () => {
+const UserPage = () => {
+  const { id: currentId } = useParams()
+  const [userData, setUserData] = useState&lt;User>()
+  const [userActivity, setUserActivity] = useState&lt;Activity>()
+  const [userAverageSessions, setUserAverageSessions] =
+    useState&lt;AverageSessions>()
+  const [userPerformance, setUserPerformance] = useState&lt;Performance>()
+  const sportSeeApi = new SportSeeApi()
+
+  /**
+   * useEffect hook for retrieving user data (global, activity, average session and performance) from the sportSeeApi and store them in the state.
+   */
+  useEffect(() => {
+    if (!currentId || isNaN(parseInt(currentId))) return
+    const numberCurrentId = parseInt(currentId)
+
+    async function getUserData() {
+      const fetchUserData = await sportSeeApi.getUserData(numberCurrentId)
+      if (fetchUserData) setUserData(new User(fetchUserData))
+    }
+
+    async function getUserActivity() {
+      const fetchUserActivity = await sportSeeApi.getUserActivity(
+        numberCurrentId
+      )
+      if (fetchUserActivity) setUserActivity(new Activity(fetchUserActivity))
+    }
+
+    async function getUserAverageSessions() {
+      const fetchUserAverageSessions = await sportSeeApi.getUserAverageSessions(
+        numberCurrentId
+      )
+      if (fetchUserAverageSessions)
+        setUserAverageSessions(new AverageSessions(fetchUserAverageSessions))
+    }
+
+    async function getUserPerformance() {
+      const fetchUserPerformance = await sportSeeApi.getUserPerformance(
+        numberCurrentId
+      )
+      if (fetchUserPerformance)
+        setUserPerformance(new Performance(fetchUserPerformance))
+    }
+
+    getUserData()
+    getUserActivity()
+    getUserAverageSessions()
+    getUserPerformance()
+    // eslint-disable-next-line
+  }, [])
+
   return (
     &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
+      {!userData &amp;&amp; &lt;Loader />}
+      {userData &amp;&amp; (
+        &lt;div className="user-page">
+          &lt;div className="user-page__header-container">
+            &lt;h1 className="user-page__header-container__title">
+              Bonjour &lt;em className="highlight">{userData.firstName}&lt;/em>
+            &lt;/h1>
+            &lt;p className="user-page__header-container__text">
+              Félicitation ! Vous avez explosé vos objectifs hier 👏
+            &lt;/p>
+          &lt;/div>
+          &lt;div className="user-page__nutrients-list-container">
+            &lt;ul className="user-page__nutrients-list-container__list">
+              &lt;li className="user-page__nutrients-list-container__list__item">
+                &lt;NutrientCard
+                  nutrient="calories"
+                  quantity={userData.calorieCount}
+                />
+              &lt;/li>
+              &lt;li className="user-page__nutrients-list-container__list__item">
+                &lt;NutrientCard
+                  nutrient="proteins"
+                  quantity={userData.proteinCount}
+                />
+              &lt;/li>
+              &lt;li className="user-page__nutrients-list-container__list__item">
+                &lt;NutrientCard nutrient="carbs" quantity={userData.carbsCount} />
+              &lt;/li>
+              &lt;li className="user-page__nutrients-list-container__list__item">
+                &lt;NutrientCard nutrient="fats" quantity={userData.lipidCount} />
+              &lt;/li>
+            &lt;/ul>
+          &lt;/div>
+          &lt;div className="user-page__activity-chart-container">
+            {userActivity &amp;&amp; &lt;ActivityChart sessions={userActivity.sessions} />}
+          &lt;/div>
+          &lt;div className="user-page__average-sessions-chart-container">
+            {userAverageSessions &amp;&amp; (
+              &lt;AverageSessionsChart sessions={userAverageSessions.sessions} />
+            )}
+          &lt;/div>
+          &lt;div className="user-page__performance-chart-container">
+            {userPerformance &amp;&amp; (
+              &lt;PerformanceChart performances={userPerformance.performances} />
+            )}
+          &lt;/div>
+          &lt;div className="user-page__score-chart-container">
+            {userData &amp;&amp; &lt;ScoreChart score={userData.todayScore} />}
+          &lt;/div>
         &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
+      )}
     &lt;/>
   )
 }
 
-export default SideBar
+export default UserPage
 </code></pre>
         </article>
     </section>

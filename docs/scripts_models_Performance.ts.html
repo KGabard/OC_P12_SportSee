@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> scripts/models/Performance.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>scripts/models/Performance.ts</h1>
                 </header>
                 
 
@@ -89,39 +89,91 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import {
+  ConvertedPerformanceDataType,
+  KindType,
+  PerformanceDataType,
+  PerformanceType,
+} from '../types/Types'
+import { translateKinds } from '../utils/Utils'
 
 /**
- * Sidebar of the site. Contains icons and a copyright.
- * @returns {JSX.Element} A React component.
+ * Converts a performance kind id to its string representation.
+ *
+ * @param {string} kindId The id of the performance kind.
+ * @param {KindType} kind The kind data.
+ *
+ * @returns {string} The string representation of the performance kind.
  */
-const SideBar = () => {
-  return (
-    &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
-        &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
-    &lt;/>
-  )
+const convertKind = (kindId: string, kind: KindType): string => {
+  switch (kindId) {
+    case '1':
+      return translateKinds(kind[1])
+    case '2':
+      return translateKinds(kind[2])
+    case '3':
+      return translateKinds(kind[3])
+    case '4':
+      return translateKinds(kind[4])
+    case '5':
+      return translateKinds(kind[5])
+    case '6':
+      return translateKinds(kind[6])
+
+    default:
+      return ''
+  }
 }
 
-export default SideBar
+/**
+ * Converts the performance data with its kind from number to string representation.
+ *
+ * @param {KindType} kind The kind of performance data.
+ * @param {PerformanceDataType[]} perfomanceData The performance data of the user.
+ *
+ * @returns {ConvertedPerformanceDataType[]} The converted performance data.
+ */
+const convertPerformances = (
+  kind: KindType,
+  perfomanceData: PerformanceDataType[]
+): ConvertedPerformanceDataType[] => {
+  const performanceDataArray: ConvertedPerformanceDataType[] = []
+  perfomanceData.forEach((perfomance) => {
+    const kindId = perfomance.kind.toString()
+    performanceDataArray.push({
+      ...perfomance,
+      kind: convertKind(kindId, kind),
+    })
+  })
+
+  return performanceDataArray
+}
+
+/**
+ * Class Performance represents a performance data with its own userId and converted performance data.
+ *
+ * @class Performance
+ *
+ * @param {PerformanceType} _performance The original performance data.
+ *
+ * @property {string} userId The id of the user.
+ * @property {ConvertedPerformanceDataType[]} performances The performance data of the user converted with its kind.
+ */
+export class Performance {
+  _performance: PerformanceType
+
+  constructor(performance: PerformanceType) {
+    this._performance = performance
+  }
+
+  get userId() {
+    return this._performance.userId
+  }
+
+  get performances() {
+    return convertPerformances(this._performance.kind, this._performance.data)
+  }
+}
 </code></pre>
         </article>
     </section>

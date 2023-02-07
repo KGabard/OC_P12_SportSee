@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layouts/SideBar.tsx</title>
+  <title> components/PerformanceChart.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layouts/SideBar.tsx</h1>
+                    <h1>components/PerformanceChart.tsx</h1>
                 </header>
                 
 
@@ -89,39 +89,107 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import ActivityIcon from '../components/ActivityIcon'
+            <pre class="prettyprint source linenums"><code>import {
+  PolarAngleAxis,
+  PolarGrid,
+  PolarRadiusAxis,
+  Radar,
+  RadarChart,
+  ResponsiveContainer,
+  Tooltip,
+  TooltipProps,
+} from 'recharts'
+import { NameType } from 'recharts/types/component/DefaultTooltipContent'
+import { ConvertedPerformanceDataType } from '../scripts/types/Types'
+import PropTypes from 'prop-types'
 
 /**
- * Sidebar of the site. Contains icons and a copyright.
- * @returns {JSX.Element} A React component.
+ * CustomTooltip renders a custom tooltip for the performance chart.
+ * @param {boolean} props.active Specifies if the tooltip is active or not.
+ * @param {NameType} props.payload Data to be displayed in the tooltip.
  */
-const SideBar = () => {
+const CustomTooltip = ({
+  active,
+  payload,
+  label,
+}: TooltipProps&lt;number, NameType>) => {
+  if (!active || !payload) {
+    return null
+  }
+
   return (
-    &lt;>
-      &lt;aside className="side-bar">
-        &lt;div className="side-bar__activities">
-          &lt;ul className="side-bar__activities__list">
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="yoga" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="swimming" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="cycling" />
-            &lt;/li>
-            &lt;li className="side-bar__activities__list__item">
-              &lt;ActivityIcon activity="weight" />
-            &lt;/li>
-          &lt;/ul>
-        &lt;/div>
-        &lt;h2 className="side-bar__copyright">Copyright, SportSee 2020&lt;/h2>
-      &lt;/aside>
-    &lt;/>
+    &lt;div className="performance-chart__tooltip">
+      &lt;p className="performance-chart__tooltip__label">
+        {label !== undefined &amp;&amp; label}
+      &lt;/p>
+      &lt;p className="performance-chart__tooltip__label">
+        {payload[0].value !== undefined &amp;&amp; payload[0].value}
+      &lt;/p>
+    &lt;/div>
   )
 }
 
-export default SideBar
+type Props = {
+  performances: ConvertedPerformanceDataType[]
+}
+
+/**
+ * PerformanceChart renders a radar chart that displays performance data.
+ * @param {ConvertedPerformanceDataType[]} props.performances Array of performance data.
+ * @returns {JSX.Element} A React component.
+ */
+const PerformanceChart = ({ performances }: Props) => {
+  return (
+    &lt;div className="performance-chart">
+      &lt;ResponsiveContainer>
+        &lt;RadarChart
+          className="performance-chart__chart"
+          margin={{
+            top: 16,
+            right: 16,
+            left: 16,
+            bottom: 16,
+          }}
+          data={performances}
+          startAngle={30}
+          endAngle={-330}
+        >
+          &lt;PolarGrid radialLines={false} polarRadius={[10, 25, 50, 70]} />
+          &lt;PolarAngleAxis
+            dataKey="kind"
+            stroke="#fff"
+            tickLine={false}
+            tick={{
+              fill: '#fff',
+              fontFamily: 'Roboto, sans-serif',
+              fontWeight: '500',
+              fontSize: '12px',
+            }}
+          />
+          &lt;PolarRadiusAxis domain={[0, 250]} axisLine={false} tick={false} />
+          &lt;Radar
+            dataKey="value"
+            stroke="var(--highlight-primary)"
+            fill="var(--highlight-primary)"
+            fillOpacity={0.6}
+          />
+          &lt;Tooltip offset={24} content={&lt;CustomTooltip />} cursor={false} />
+        &lt;/RadarChart>
+      &lt;/ResponsiveContainer>
+    &lt;/div>
+  )
+}
+
+PerformanceChart.propTypes = {
+  performances: PropTypes.arrayOf(
+    PropTypes.shape({
+      kind: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+}
+
+export default PerformanceChart
 </code></pre>
         </article>
     </section>
